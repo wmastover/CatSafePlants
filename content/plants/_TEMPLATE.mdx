@@ -1,0 +1,96 @@
+---
+# Copy this file to `<slug>.mdx` and fill in every field.
+# Run `npm run build` to validate. Invalid frontmatter fails the build.
+
+title: Plant Common Name
+slug: plant-slug
+latin: Genus species
+verdict: safe  # safe | toxic | insufficient-data
+verdictMark: "◦"  # ◦ for safe, ! for toxic, ? for insufficient-data
+verdictLabel: The verdict
+verdictText: 'Safe — <em>short ruling</em>'
+dek: >-
+  One or two sentences answering the search intent directly.
+  Lead with the verdict. Cite ASPCA in the body.
+taxonomy:
+  family: FamilyName
+  genus: Genus
+  species: species
+lastReviewed: "YYYY-MM-DD"
+aspcaUrl: https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants/PLANT-SLUG
+plateNumber: Pl. —
+colophonEnd: "— end of entry —"
+metaTitle: "Is [Plant] Safe for Cats? Yes/No — Verdict"  # max 60 chars
+metaDescription: "Direct answer in under 155 chars with ASPCA reference."  # max 155 chars
+targetKeyword: is [plant] safe for cats
+hero:
+  alt: Descriptive alt text for the hero image
+  tag: Fig. I · Habit
+  scale: 10 cm
+  caption: Plate caption describing the specimen.
+  src: /images/plants/plant-slug/hero.webp  # optional — omit until image exists
+facts:
+  - label: Toxicity
+    value: None
+    sub: to cats
+observations:
+  - title: Effect name
+    description: What happens and why.
+    frequency: "◦ Common"
+# Safe plants only:
+cultivars:
+  - name: Cultivar name
+    tag: cv. Tag
+    subtitle: optional subtitle
+    description: Brief description.
+care:
+  - key: Light
+    title: Bright, indirect
+    description: Care detail.
+    scale: 3  # 1-5
+    icon: light  # light | water | soil | placement
+# Toxic plants only:
+lookalikesIntro: >-
+  Brief intro to safe alternatives.
+lookalikes:
+  - title: Safe alternative
+    latin: Genus species
+    why: Why it is a good substitute.
+    price: 20
+    amazonQuery: search terms for amazon
+sources:
+  - citation: 'ASPCA Animal Poison Control Center. <em>Toxic and Non-Toxic Plants: Plant Name.</em>'
+    note: Accessed Month YYYY · aspca.org
+    url: https://www.aspca.org/pet-care/animal-poison-control/toxic-and-non-toxic-plants/PLANT-SLUG
+related:
+  - other-plant-slug
+faq:
+  - question: Is [plant] safe for cats?
+    answer: Direct answer citing ASPCA. Required for FAQPage schema.
+# Safe plants only:
+affiliate:
+  price: 18
+  amazonQuery: plant name
+  altLinks:
+    - label: Etsy
+      url: https://www.etsy.com/search?q=plant+name
+bodyTitle: What happens if your cat
+bodyTitleEm: eats it.
+pullQuote: >-
+  Optional pull quote for the body section.
+sidebar:
+  - kicker: If you must worry
+    title: Watch for, in order of <em>seriousness</em>.
+    ordered: true
+    items:
+      - text: Symptom
+        sub: optional detail
+---
+
+<span className="first">F</span>irst paragraph must give a direct answer to the title question. Link to [ASPCA](https://www.aspca.org/...) for the toxicity claim.
+
+Additional paragraphs with care, context, and internal links to related plants.
+
+### Subheading in MDX
+
+More content as needed.

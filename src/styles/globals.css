@@ -1,0 +1,162 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #1a1f1a;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
+  color: #243024;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+/* Font overrides for design system */
+.page .wordmark,
+.page .h1,
+.page .latin,
+.page .verdict-text .ruling,
+.page .dek,
+.page .buy-from .amount,
+.page .buy-btn .arrow,
+.page .buy-alt,
+.page .emergency h3,
+.page .emergency p,
+.page .phone-card .hours,
+.page .cta-warn .arrow,
+.page .hero-alts h3,
+.page .hero-alts .name,
+.page .hero-alts .lat,
+.page .hero-alts .go .arrow,
+.page .figcaption,
+.page .fact .v,
+.page .fact .v small,
+.page .col h2,
+.page .col p,
+.page .col p .first,
+.page .pull,
+.page .side-card h4,
+.page .side-card li .it,
+.page .side-card li .it small,
+.page .section-rule h2,
+.page .obs-card h4,
+.page .obs-card p,
+.page .variety h4,
+.page .variety p,
+.page .care-item h4,
+.page .care-item p,
+.page .swap-intro p,
+.page .swap-card h4,
+.page .swap-card .lat,
+.page .swap-card .why,
+.page .swap-card .from strong,
+.page .swap-card .buy .arrow,
+.page .sources .src-body,
+.page .related-card h4,
+.page .related-card .lat,
+.page .colophon .end {
+  font-family: var(--font-cormorant), "Cormorant Garamond", serif;
+}
+
+.page .nav-left,
+.page .nav-right,
+.page .crumbs,
+.page .verdict-text .label,
+.page .buy-card .kicker,
+.page .buy-from .label,
+.page .buy-btn,
+.page .buy-disclose,
+.page .phone-card .label,
+.page .phone-card .number,
+.page .cta-warn,
+.page .hero-alts .kicker,
+.page .hero-alts .lat .price,
+.page .hero-alts .go,
+.page .hero-alts .disclose,
+.page .figure-tag,
+.page .figure-scale,
+.page .figcaption strong,
+.page .facts-label,
+.page .fact .k,
+.page .col h3,
+.page .side-card .kicker,
+.page .side-card ol li::before,
+.page .section-rule .lab,
+.page .obs-card .n,
+.page .obs-card .freq,
+.page .variety .pic .v-tag,
+.page .care-item .k,
+.page .swap-card .pic .tag,
+.page .swap-card .from,
+.page .swap-card .buy,
+.page .sources .lab,
+.page .sources ol li::before,
+.page .sources .src-body small,
+.page .related-card .v-tag,
+.page .colophon {
+  font-family: var(--font-jetbrains-mono), "JetBrains Mono", monospace;
+}
+
+/* PlantImage component — replaces design canvas image-slot */
+.plant-image {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--paper-2);
+}
+
+.plant-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.plant-image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  font-family: var(--font-jetbrains-mono), "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--umber);
+  line-height: 1.6;
+  border: 1px dashed var(--rule);
+}
+
+.figure .plant-image,
+.variety .pic .plant-image,
+.swap-card .pic .plant-image,
+.related-card .pic .plant-image {
+  width: 100%;
+  height: 100%;
+}
+
+.wordmark-link {
+  text-decoration: none;
+  color: inherit;
+}
