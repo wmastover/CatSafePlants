@@ -2,6 +2,8 @@ import fs from "fs";
 import path from "path";
 import {
   buildPrompt,
+  buildCultivarPrompt,
+  cultivarSlug,
   NANO_BANANA_MODEL,
   OPENROUTER_API_URL,
   REFERENCE_SEARCH,
@@ -174,6 +176,8 @@ function extractGeneratedImageUrl(response: OpenRouterResponse): string {
 export interface GeneratePlantImageOptions {
   slug: string;
   plantName: string;
+  cultivarName?: string;
+  cultivarSubtitle?: string;
   referencePhotoPath?: string;
   outputPath?: string;
   /** Called when reference photo could not be fetched (generation still proceeds). */
@@ -188,6 +192,8 @@ export interface GeneratePlantImageResult {
 export async function generatePlantImage({
   slug,
   plantName,
+  cultivarName,
+  cultivarSubtitle,
   referencePhotoPath,
   outputPath,
   onReferenceMissing,
@@ -209,23 +215,57 @@ export async function generatePlantImage({
     process.cwd(),
     "assets",
     "reference-photos",
-    `${slug}-reference.jpg`,
+    cultivarName
+      ? `${slug}-${cultivarSlug(cultivarName)}-reference.jpg`
+      : `${slug}-reference.jpg`,
   );
 
   let referencePath: string | null = referencePhotoPath ?? null;
   if (!referencePath) {
-    referencePath = await fetchReferencePhoto(slug, plantName, refCache);
+    const searchName = cultivarName
+      ? `${plantName} ${cultivarName}${cultivarSubtitle ? ` ${cultivarSubtitle}` : ""}`
+      : plantName;
+    referencePath = await fetchReferencePhoto(slug, searchName, refCache);
+  }
+
+  if (!referencePath && cultivarName) {
+    const parentRef = path.join(
+      process.cwd(),
+      "assets",
+      "reference-photos",
+      `${slug}-reference.jpg`,
+    );
+    const parentHero = path.join(
+      process.cwd(),
+      "public",
+      "images",
+      "plants",
+      slug,
+      "hero.png",
+    );
+    if (fs.existsSync(parentRef)) referencePath = parentRef;
+    else if (fs.existsSync(parentHero)) referencePath = parentHero;
   }
 
   const usedReferencePhoto = !!referencePath;
   if (!usedReferencePhoto) {
-    const msg = `No reference photo found for "${plantName}" — generating from style reference only.`;
+    const label = cultivarName ? `${plantName} (${cultivarName})` : plantName;
+    const msg = `No reference photo found for "${label}" — generating from style reference only.`;
     onReferenceMissing?.(msg);
   }
 
   const out =
     outputPath ??
-    path.join(process.cwd(), "public", "images", "plants", slug, "hero.png");
+    (cultivarName
+      ? path.join(
+          process.cwd(),
+          "public",
+          "images",
+          "plants",
+          slug,
+          `${cultivarSlug(cultivarName)}.png`,
+        )
+      : path.join(process.cwd(), "public", "images", "plants", slug, "hero.png"));
 
   const content: ContentPart[] = [
     {
@@ -241,7 +281,12 @@ export async function generatePlantImage({
     });
   }
 
-  content.push({ type: "text", text: buildPrompt(plantName, usedReferencePhoto) });
+  content.push({
+    type: "text",
+    text: cultivarName
+      ? buildCultivarPrompt(plantName, cultivarName, cultivarSubtitle, usedReferencePhoto)
+      : buildPrompt(plantName, usedReferencePhoto),
+  });
 
   const body = {
     model: NANO_BANANA_MODEL,

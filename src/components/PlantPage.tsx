@@ -49,6 +49,15 @@ function splitTitle(title: string): { main: string; em: string } {
   return { main: words.join(" "), em };
 }
 
+function cultivarAmazonQuery(
+  affiliateQuery: string | undefined,
+  plantTitle: string,
+  variety: { name: string; subtitle?: string },
+): string {
+  const base = affiliateQuery ?? plantTitle;
+  return [base, variety.name, variety.subtitle].filter(Boolean).join(" ");
+}
+
 interface PlantPageProps {
   plant: PlantDocument;
   pageUrl: string;
@@ -57,7 +66,9 @@ interface PlantPageProps {
 export function PlantPage({ plant, pageUrl }: PlantPageProps) {
   const fm = plant.frontmatter;
   const isToxic = fm.verdict === "toxic";
-  const related = getRelatedPlants(fm.related);
+  const related = getRelatedPlants(fm.related).filter(
+    (plant) => plant.frontmatter.verdict === "safe",
+  );
   const titleParts = splitTitle(fm.title);
   const factsClass = fm.facts.length <= 4 ? "facts facts-4" : "facts";
 
@@ -81,9 +92,9 @@ export function PlantPage({ plant, pageUrl }: PlantPageProps) {
     title: "",
   };
   const relatedSection = fm.relatedSection ?? {
-    lab: isToxic ? "§ IV · Also avoid" : "§ VI · Adjacent species",
-    title: isToxic ? "Other plants " : "If you liked this, ",
-    titleEm: isToxic ? "not to bring home." : "also safe.",
+    lab: "§ VI · Adjacent species",
+    title: "If you liked this, ",
+    titleEm: "also safe.",
   };
   const lookalikesSection = fm.lookalikesSection ?? {
     lab: "§ I · Safe lookalikes",
@@ -122,7 +133,7 @@ export function PlantPage({ plant, pageUrl }: PlantPageProps) {
               </div>
             </div>
 
-            {!isToxic && <p className="dek">{fm.dek}</p>}
+            <p className="dek">{fm.dek}</p>
 
             {!isToxic && fm.affiliate && (
               <div className="buy-card">
@@ -182,8 +193,6 @@ export function PlantPage({ plant, pageUrl }: PlantPageProps) {
               </p>
             )}
           </div>
-
-          {isToxic && <p className="dek">{fm.dek}</p>}
         </section>
 
         {isToxic && fm.lookalikes && fm.lookalikes.length > 0 && (
@@ -192,7 +201,7 @@ export function PlantPage({ plant, pageUrl }: PlantPageProps) {
               <div className="lab">{lookalikesSection.lab}</div>
               <h2>
                 {lookalikesSection.title}
-                {lookalikesSection.titleEm && <em>{lookalikesSection.titleEm}</em>}
+                {lookalikesSection.titleEm && <> <em>{lookalikesSection.titleEm}</em></>}
               </h2>
             </div>
             {fm.lookalikesIntro && (
@@ -252,7 +261,7 @@ export function PlantPage({ plant, pageUrl }: PlantPageProps) {
           <div className="col">
             <h2>
               {fm.bodyTitle}
-              {fm.bodyTitleEm && <em>{fm.bodyTitleEm}</em>}
+              {fm.bodyTitleEm && <> <em>{fm.bodyTitleEm}</em></>}
             </h2>
             <MdxBody content={plant.content} />
             {fm.pullQuote && <div className="pull">&ldquo;{fm.pullQuote}&rdquo;</div>}
@@ -328,7 +337,7 @@ export function PlantPage({ plant, pageUrl }: PlantPageProps) {
           <div className="lab">{obsSection.lab}</div>
           <h2>
             {obsSection.title}
-            {obsSection.titleEm && <em>{obsSection.titleEm}</em>}
+            {obsSection.titleEm && <> <em>{obsSection.titleEm}</em></>}
           </h2>
         </div>
         <section className="obs">
@@ -348,13 +357,21 @@ export function PlantPage({ plant, pageUrl }: PlantPageProps) {
               <div className="lab">{cultivarsSection.lab}</div>
               <h2>
                 {cultivarsSection.title}
-                {cultivarsSection.titleEm && <em>{cultivarsSection.titleEm}</em>}
+                {cultivarsSection.titleEm && <> <em>{cultivarsSection.titleEm}</em></>}
               </h2>
             </div>
             <section className="varieties">
               {fm.cultivars.map((variety) => (
                 <div className="variety" key={variety.name}>
-                  <div className="pic">
+                  <a
+                    href={amazonSearchUrl(
+                      cultivarAmazonQuery(fm.affiliate?.amazonQuery, fm.title, variety),
+                    )}
+                    target="_blank"
+                    rel="sponsored noopener nofollow"
+                    className="pic"
+                    aria-label={`Search Amazon for ${variety.name} ${fm.title}`}
+                  >
                     <PlantImage
                       slug={fm.slug}
                       imagePath={variety.image}
@@ -362,7 +379,7 @@ export function PlantPage({ plant, pageUrl }: PlantPageProps) {
                       placeholder={variety.name}
                     />
                     <div className="v-tag">{variety.tag}</div>
-                  </div>
+                  </a>
                   <h4>
                     {variety.name}
                     {variety.subtitle && <em> ({variety.subtitle})</em>}
@@ -380,7 +397,7 @@ export function PlantPage({ plant, pageUrl }: PlantPageProps) {
               <div className="lab">{careSection.lab}</div>
               <h2>
                 {careSection.title}
-                {careSection.titleEm && <em>{careSection.titleEm}</em>}
+                {careSection.titleEm && <> <em>{careSection.titleEm}</em></>}
               </h2>
             </div>
             <section className="care">
@@ -421,22 +438,20 @@ export function PlantPage({ plant, pageUrl }: PlantPageProps) {
           </ol>
         </section>
 
-        {related.length > 0 && (
+        {!isToxic && related.length > 0 && (
           <>
             <div className="section-rule">
               <div className="lab">{relatedSection.lab}</div>
               <h2>
                 {relatedSection.title}
-                {relatedSection.titleEm && <em>{relatedSection.titleEm}</em>}
+                {relatedSection.titleEm && <> <em>{relatedSection.titleEm}</em></>}
               </h2>
             </div>
             <section className="related">
-              {related.map((rel) => {
-                const relToxic = rel.frontmatter.verdict === "toxic";
-                return (
+              {related.map((rel) => (
                   <Link
                     href={`/plants/${rel.slug}/`}
-                    className={`related-card${relToxic ? " warn" : ""}`}
+                    className="related-card"
                     key={rel.slug}
                   >
                     <div className="pic">
@@ -456,8 +471,7 @@ export function PlantPage({ plant, pageUrl }: PlantPageProps) {
                       <div className="v-tag">{verdictTag(rel.frontmatter.verdict)}</div>
                     </div>
                   </Link>
-                );
-              })}
+              ))}
             </section>
           </>
         )}

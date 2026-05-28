@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "new-plant": "tsx scripts/new-plant.ts",
-    "generate-image": "tsx scripts/generate-plant-image.ts"
+    "generate-image": "tsx scripts/generate-plant-image.ts",
+    "generate-cultivar-images": "tsx scripts/generate-cultivar-images.ts",
+    "restore-em-dashes": "tsx scripts/restore-em-dashes.ts"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

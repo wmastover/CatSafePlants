@@ -79,7 +79,7 @@
   grid-template-columns: 7fr 5fr;
   gap: 48px;
   padding: 56px 64px 180px;
-  min-height: calc(100vh - 95px);
+  min-height: calc(100vh — 95px);
   box-sizing: border-box;
 }
 
@@ -196,7 +196,7 @@
 .landing-figure {
   position: relative;
   width: 100%;
-  aspect-ratio: 3/4;
+  aspect-ratio: 4/5;
   background: #ebe4d0;
 }
 
@@ -253,6 +253,16 @@
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: #8a7a55;
+}
+
+.landing-strip-label-link {
+  text-decoration: none;
+  color: #8a7a55;
+  transition: color 0.15s;
+}
+
+.landing-strip-label-link:hover {
+  color: #2f4530;
 }
 
 .landing-strip-item {

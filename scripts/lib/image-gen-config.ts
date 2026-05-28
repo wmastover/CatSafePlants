@@ -29,6 +29,42 @@ export function buildPrompt(plantName: string, hasReferencePhoto: boolean): stri
   return lines.join(" ");
 }
 
+export function cultivarSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+export function buildCultivarPrompt(
+  plantName: string,
+  cultivarName: string,
+  subtitle: string | undefined,
+  hasReferencePhoto: boolean,
+): string {
+  const varietyLabel = subtitle
+    ? `${plantName}, ${cultivarName} variety (${subtitle})`
+    : `${plantName}, ${cultivarName} cultivar`;
+  const lines = [
+    "Look at the botanical drawing style image of a peace lily.",
+    `Now make a similar style botanical illustration for ${varietyLabel}.`,
+    "Show the distinctive features of this specific cultivar clearly.",
+  ];
+  if (hasReferencePhoto) {
+    lines.push("I've attached a reference photo of this plant or cultivar for context.");
+  } else {
+    lines.push(
+      "Draw the cultivar accurately from botanical knowledge — habit, leaves, and overall form.",
+    );
+  }
+  lines.push("Include no text, just the drawing of the plant, on an off white background.");
+  return lines.join(" ");
+}
+
+export function cultivarImagePath(slug: string, cultivarName: string): string {
+  return `/images/plants/${slug}/${cultivarSlug(cultivarName)}.png`;
+}
+
 /** Wikimedia Commons search terms for reference photos (real-world context). */
 export const REFERENCE_SEARCH: Record<string, string> = {
   "spider-plant": "Chlorophytum comosum plant",
@@ -36,6 +72,11 @@ export const REFERENCE_SEARCH: Record<string, string> = {
   "boston-fern": "Nephrolepis exaltata Boston fern",
   "prayer-plant": "Maranta leuconeura plant",
   "cast-iron-plant": "Aspidistra elatior plant",
+  haworthia: "Haworthia attenuata plant",
+  "parlor-palm": "Chamaedorea elegans plant",
+  "wax-plant": "Hoya carnosa plant",
+  "swedish-ivy": "Plectranthus verticillatus plant",
+  "african-violet": "Saintpaulia ionantha plant",
 };
 
 export const HERO_OUTPUT_NAMES = ["hero.png", "hero.webp", "hero.jpg"] as const;

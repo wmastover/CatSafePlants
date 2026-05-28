@@ -30,7 +30,7 @@ export function LandingPage() {
             cat <em>safe</em> plants
           </Link>
           <div className="landing-nav-right">
-            <Link href="/">Library</Link>
+            <Link href="/library/">Library</Link>
           </div>
         </nav>
 
@@ -80,11 +80,11 @@ export function LandingPage() {
         </section>
 
         <div className="landing-strip">
-          <div className="landing-strip-label">
-            This week&apos;s
+          <Link href="/library/" className="landing-strip-label landing-strip-label-link">
+            The full
             <br />
-            verdicts
-          </div>
+            library →
+          </Link>
           {featured.map((plant) => {
             const v = verdictLabel(plant.frontmatter.verdict);
             return (

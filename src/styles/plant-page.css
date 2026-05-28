@@ -749,9 +749,19 @@ button { font: inherit; cursor: pointer; }
   padding: 28px 64px 64px;
 }
 .variety .pic {
-  aspect-ratio: 1/1;
+  aspect-ratio: 4/5;
   background: var(--paper-2);
   position: relative;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.variety .pic:hover { opacity: 0.92; }
+.variety .pic:focus-visible {
+  outline: 2px solid var(--sage);
+  outline-offset: 2px;
 }
 .variety .pic image-slot { width: 100%; height: 100%; }
 .variety .pic .v-tag {
@@ -984,8 +994,9 @@ button { font: inherit; cursor: pointer; }
   color: inherit;
 }
 .related-card .pic {
-  aspect-ratio: 4/3;
+  aspect-ratio: 4/5;
   background: var(--paper-2);
+  position: relative;
 }
 .related-card .pic image-slot { width: 100%; height: 100%; }
 .related-card .meta {

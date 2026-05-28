@@ -12,7 +12,7 @@ export function SiteNav({ active }: SiteNavProps) {
         cat <em>safe</em> plants
       </Link>
       <div className="nav-right">
-        <Link href="/" className={active === "library" ? "active" : undefined}>
+        <Link href="/library/" className={active === "library" ? "active" : undefined}>
           Library
         </Link>
       </div>
