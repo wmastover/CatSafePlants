@@ -57,7 +57,7 @@ logs/               Agent activity logs
 
 | Variable | Default | Purpose |
 |----------|---------|---------|
-| `NEXT_PUBLIC_SITE_URL` | `https://catsafeplants.com` | Canonical URL for sitemap/OG |
+| `NEXT_PUBLIC_SITE_URL` | `https://catsafeplant.com` | Canonical URL for sitemap/OG |
 | `NEXT_PUBLIC_AMAZON_TAG` | `catsafe-21` | Amazon Associates tag |
 
 ## Deploy
