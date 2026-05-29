@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { fontVariables } from "@/lib/fonts";
+import { siteLogoSrc } from "@/components/SiteLogo";
 import { siteConfig } from "@/lib/site.config";
 import "@/styles/globals.css";
 import "@/styles/plant-page.css";
@@ -13,6 +14,10 @@ export const metadata: Metadata = {
     template: `%s · ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  icons: {
+    icon: siteLogoSrc,
+    apple: siteLogoSrc,
+  },
   openGraph: {
     type: "website",
     locale: siteConfig.locale,

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SiteLogo } from "@/components/SiteLogo";
 
 interface SiteNavProps {
   active?: "library" | "home";
@@ -7,7 +8,9 @@ interface SiteNavProps {
 export function SiteNav({ active }: SiteNavProps) {
   return (
     <nav className="nav">
-      <div className="nav-left" />
+      <div className="nav-left">
+        <SiteLogo />
+      </div>
       <Link href="/" className="wordmark wordmark-link">
         cat <em>safe</em> plants
       </Link>

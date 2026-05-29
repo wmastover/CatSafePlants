@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useLazyBatch } from "@/hooks/useLazyBatch";
 import type { PlantFrontmatter } from "@/lib/plant-schema";
 
@@ -24,9 +25,49 @@ function verdictMeta(verdict: string): { label: string; warn: boolean } {
   return { label: "Unknown", warn: true };
 }
 
-export function LibraryGrid({ plants }: LibraryGridProps) {
-  const [query, setQuery] = useState("");
+function libraryUrl(query: string): string {
+  const trimmed = query.trim();
+  return trimmed ? `/library/?q=${encodeURIComponent(trimmed)}` : "/library/";
+}
+
+interface LibraryGridInnerProps extends LibraryGridProps {
+  initialQuery?: string;
+  syncUrl?: boolean;
+}
+
+function LibraryGridInner({
+  plants,
+  initialQuery = "",
+  syncUrl = false,
+}: LibraryGridInnerProps) {
+  const router = useRouter();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const shouldFocusRef = useRef(Boolean(initialQuery));
+
+  const [query, setQuery] = useState(initialQuery);
   const [filter, setFilter] = useState<Filter>("all");
+
+  useEffect(() => {
+    setQuery(initialQuery);
+    if (initialQuery) {
+      shouldFocusRef.current = true;
+    }
+  }, [initialQuery]);
+
+  useEffect(() => {
+    if (!shouldFocusRef.current || !inputRef.current) return;
+    shouldFocusRef.current = false;
+    inputRef.current.focus();
+    const len = inputRef.current.value.length;
+    inputRef.current.setSelectionRange(len, len);
+  }, [query]);
+
+  function handleQueryChange(value: string) {
+    setQuery(value);
+    if (syncUrl) {
+      router.replace(libraryUrl(value), { scroll: false });
+    }
+  }
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -68,10 +109,11 @@ export function LibraryGrid({ plants }: LibraryGridProps) {
             <path d="m21 21-4.3-4.3" />
           </svg>
           <input
+            ref={inputRef}
             type="search"
             placeholder="Search the library…"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => handleQueryChange(e.target.value)}
             aria-label="Search plants in library"
           />
         </div>
@@ -142,5 +184,21 @@ export function LibraryGrid({ plants }: LibraryGridProps) {
         </>
       )}
     </>
+  );
+}
+
+function LibraryGridWithUrl({ plants }: LibraryGridProps) {
+  const searchParams = useSearchParams();
+  const initialQuery = searchParams.get("q") ?? "";
+  return (
+    <LibraryGridInner plants={plants} initialQuery={initialQuery} syncUrl />
+  );
+}
+
+export function LibraryGrid({ plants }: LibraryGridProps) {
+  return (
+    <Suspense fallback={<LibraryGridInner plants={plants} />}>
+      <LibraryGridWithUrl plants={plants} />
+    </Suspense>
   );
 }

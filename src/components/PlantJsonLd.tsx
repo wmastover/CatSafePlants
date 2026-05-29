@@ -85,7 +85,7 @@ export function HomeJsonLd() {
     description: siteConfig.description,
     potentialAction: {
       "@type": "SearchAction",
-      target: `${siteConfig.url}/?q={search_term_string}`,
+      target: `${siteConfig.url}/library/?q={search_term_string}`,
       "query-input": "required name=search_term_string",
     },
   };
