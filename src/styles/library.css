@@ -125,6 +125,12 @@
   gap: 1.5rem;
 }
 
+.library-load-sentinel {
+  position: relative;
+  height: 1px;
+  width: 100%;
+}
+
 .library-card {
   display: flex;
   flex-direction: column;

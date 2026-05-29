@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useMemo, useState } from "react";
+import { useLazyBatch } from "@/hooks/useLazyBatch";
 import type { PlantFrontmatter } from "@/lib/plant-schema";
 
 export interface LibraryPlantCard {
@@ -41,6 +42,16 @@ export function LibraryGrid({ plants }: LibraryGridProps) {
       );
     });
   }, [plants, query, filter]);
+
+  const { visibleCount, sentinelRef, hasMore } = useLazyBatch({
+    total: filtered.length,
+    resetKey: `${query}|${filter}`,
+  });
+
+  const visible = useMemo(
+    () => filtered.slice(0, visibleCount),
+    [filtered, visibleCount],
+  );
 
   const counts = useMemo(() => {
     const safe = plants.filter((p) => p.frontmatter.verdict === "safe").length;
@@ -90,39 +101,45 @@ export function LibraryGrid({ plants }: LibraryGridProps) {
       {filtered.length === 0 ? (
         <p className="library-empty">No plants match your search. Try another name.</p>
       ) : (
-        <ul className="library-grid">
-          {filtered.map((plant) => {
-            const v = verdictMeta(plant.frontmatter.verdict);
-            return (
-              <li key={plant.slug}>
-                <Link href={`/plants/${plant.slug}/`} className="library-card">
-                  <div className="library-card-image">
-                    {plant.heroSrc ? (
-                      <Image
-                        src={plant.heroSrc}
-                        alt={plant.frontmatter.hero.alt}
-                        fill
-                        sizes="(max-width: 640px) 100vw, 280px"
-                      />
-                    ) : (
-                      <div className="plant-image-placeholder" aria-hidden>
-                        {plant.frontmatter.title}
-                      </div>
-                    )}
-                  </div>
-                  <div className="library-card-body">
-                    <div className={`library-card-verdict${v.warn ? " warn" : ""}`}>
-                      {v.label}
+        <>
+          <ul className="library-grid">
+            {visible.map((plant) => {
+              const v = verdictMeta(plant.frontmatter.verdict);
+              return (
+                <li key={plant.slug}>
+                  <Link href={`/plants/${plant.slug}/`} className="library-card">
+                    <div className="library-card-image">
+                      {plant.heroSrc ? (
+                        <Image
+                          src={plant.heroSrc}
+                          alt={plant.frontmatter.hero.alt}
+                          fill
+                          loading="lazy"
+                          sizes="(max-width: 640px) 100vw, 280px"
+                        />
+                      ) : (
+                        <div className="plant-image-placeholder" aria-hidden>
+                          {plant.frontmatter.title}
+                        </div>
+                      )}
                     </div>
-                    <h2>{plant.frontmatter.title}</h2>
-                    <p className="library-card-latin">{plant.frontmatter.latin}</p>
-                    <p className="library-card-dek">{plant.frontmatter.dek}</p>
-                  </div>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+                    <div className="library-card-body">
+                      <div className={`library-card-verdict${v.warn ? " warn" : ""}`}>
+                        {v.label}
+                      </div>
+                      <h2>{plant.frontmatter.title}</h2>
+                      <p className="library-card-latin">{plant.frontmatter.latin}</p>
+                      <p className="library-card-dek">{plant.frontmatter.dek}</p>
+                    </div>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+          {hasMore ? (
+            <div ref={sentinelRef} className="library-load-sentinel" aria-hidden />
+          ) : null}
+        </>
       )}
     </>
   );
