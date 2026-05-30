@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PlantHeroGallery, type HeroSlide } from "./PlantHeroGallery";
 import { PlantImage } from "./PlantImage";
 import { MdxBody } from "./MdxBody";
 import { SiteNav } from "./SiteNav";
@@ -7,6 +8,7 @@ import { PlantJsonLd } from "./PlantJsonLd";
 import { amazonSearchUrl, formatPrice, siteConfig } from "@/lib/site.config";
 import type { PlantDocument } from "@/lib/plant-schema";
 import { getRelatedPlants } from "@/lib/plants";
+import { resolvePlantHeroSrc, resolvePlantInteriorSrc } from "@/lib/plant-image";
 
 function CareIcon({ type }: { type?: string }) {
   const icons: Record<string, React.ReactNode> = {
@@ -102,6 +104,35 @@ export function PlantPage({ plant, pageUrl }: PlantPageProps) {
     titleEm: "without the risk.",
   };
 
+  const heroSrc = resolvePlantHeroSrc(fm.slug, fm.hero.src);
+  const interiorSrc = fm.heroInterior
+    ? resolvePlantInteriorSrc(fm.slug, fm.heroInterior.src)
+    : null;
+
+  const heroSlides: HeroSlide[] = [];
+  if (heroSrc) {
+    heroSlides.push({
+      src: heroSrc,
+      alt: fm.hero.alt,
+      tag: fm.hero.tag,
+      scale: fm.hero.scale,
+      caption: fm.hero.caption,
+      captionLabel: "Plate I",
+      kind: "drawing",
+    });
+  }
+  if (interiorSrc && fm.heroInterior) {
+    heroSlides.push({
+      src: interiorSrc,
+      alt: fm.heroInterior.alt,
+      tag: fm.heroInterior.tag,
+      caption: fm.heroInterior.caption,
+      captionLabel: fm.heroInterior.caption ? "Plate II" : undefined,
+      cover: true,
+      kind: "photo",
+    });
+  }
+
   return (
     <>
       <PlantJsonLd plant={plant} url={pageUrl} />
@@ -171,26 +202,31 @@ export function PlantPage({ plant, pageUrl }: PlantPageProps) {
           </div>
 
           <div className="hero-right">
-            <div className="figure">
-              <PlantImage
-                slug={fm.slug}
-                imagePath={fm.hero.src}
-                alt={fm.hero.alt}
-                placeholder={fm.hero.alt}
-              />
-              {fm.hero.tag && <div className="figure-tag">{fm.hero.tag}</div>}
-              {fm.hero.scale && (
-                <div className="figure-scale">
-                  <div className="bar" />
-                  <div>{fm.hero.scale}</div>
+            {heroSlides.length > 0 ? (
+              <PlantHeroGallery slides={heroSlides} />
+            ) : (
+              <>
+                <div className="figure">
+                  <div className="plant-image">
+                    <div className="plant-image-placeholder" aria-hidden>
+                      {fm.hero.alt}
+                    </div>
+                  </div>
+                  {fm.hero.tag && <div className="figure-tag">{fm.hero.tag}</div>}
+                  {fm.hero.scale && (
+                    <div className="figure-scale">
+                      <div className="bar" />
+                      <div>{fm.hero.scale}</div>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-            {fm.hero.caption && (
-              <p className="figcaption">
-                <strong>Plate I</strong>
-                {fm.hero.caption}
-              </p>
+                {fm.hero.caption && (
+                  <p className="figcaption">
+                    <strong>Plate I</strong>
+                    {fm.hero.caption}
+                  </p>
+                )}
+              </>
             )}
           </div>
         </section>
@@ -211,19 +247,31 @@ export function PlantPage({ plant, pageUrl }: PlantPageProps) {
               </div>
             )}
             <section className="swap">
-              {fm.lookalikes.map((item) => (
+              {fm.lookalikes.map((item) => {
+                const media = (
+                  <>
+                    <div className="pic">
+                      <PlantImage
+                        slug={item.slug ?? fm.slug}
+                        imagePath={item.image}
+                        alt={item.title}
+                        placeholder={item.title}
+                      />
+                      <div className="tag">◦ Cat safe</div>
+                    </div>
+                    <h4>{item.title}</h4>
+                    <div className="lat">{item.latin}</div>
+                  </>
+                );
+                return (
                 <div className="swap-card" key={item.title}>
-                  <div className="pic">
-                    <PlantImage
-                      slug={item.slug ?? fm.slug}
-                      imagePath={item.image}
-                      alt={item.title}
-                      placeholder={item.title}
-                    />
-                    <div className="tag">◦ Cat safe</div>
-                  </div>
-                  <h4>{item.title}</h4>
-                  <div className="lat">{item.latin}</div>
+                  {item.slug ? (
+                    <Link href={`/plants/${item.slug}/`} className="swap-card-link">
+                      {media}
+                    </Link>
+                  ) : (
+                    media
+                  )}
                   <p className="why">{item.why}</p>
                   {item.price && (
                     <div className="from">
@@ -239,7 +287,8 @@ export function PlantPage({ plant, pageUrl }: PlantPageProps) {
                     Buy on Amazon <span className="arrow">→</span>
                   </a>
                 </div>
-              ))}
+                );
+              })}
             </section>
           </>
         )}

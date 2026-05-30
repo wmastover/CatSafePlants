@@ -80,3 +80,19 @@ export const REFERENCE_SEARCH: Record<string, string> = {
 };
 
 export const HERO_OUTPUT_NAMES = ["hero.png", "hero.webp", "hero.jpg"] as const;
+export const INTERIOR_OUTPUT_NAMES = [
+  "hero-interior.png",
+  "hero-interior.webp",
+  "hero-interior.jpg",
+] as const;
+
+export function buildInteriorPrompt(
+  plantName: string,
+  hasReferencePhoto: boolean,
+): string {
+  const base = `A portrait, photorealistic, aesthetic interior photography shot of a ${plantName} potted in a stylish woven basket or terracotta pot, sitting on a warm wooden table. Soft, warm golden hour sunlight streams through a nearby window with sheer white curtains on the left, illuminating the plant with rays of light. The sunlight casts delicate, distinct leaf shadows on the smooth, plain beige wall behind it. Cozy Japandi interior design, warm cinematic lighting, serene and calming atmosphere, highly detailed, 8k resolution.`;
+  if (hasReferencePhoto) {
+    return `${base}\n\nI've attached a reference photo of this plant — match its species, leaf shape, flower colour, and overall habit accurately.`;
+  }
+  return base;
+}

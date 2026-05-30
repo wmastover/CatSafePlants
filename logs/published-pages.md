@@ -24,3 +24,27 @@
 | Wax Plant | wax-plant | 2026-05-28 | is hoya safe for cats | — | — |
 | Swedish Ivy | swedish-ivy | 2026-05-28 | is swedish ivy safe for cats | — | — |
 | African Violet | african-violet | 2026-05-28 | is african violet safe for cats | — | — |
+| Lily (true) | lily | 2026-05-30 | are lilies poisonous to cats | — | — |
+| Calla Lily | calla-lily | 2026-05-30 | are calla lilies toxic to cats | — | — |
+| Tulip | tulip | 2026-05-30 | are tulips toxic to cats | — | — |
+| Lavender | lavender | 2026-05-30 | is lavender toxic to cats | — | — |
+| Eucalyptus | eucalyptus | 2026-05-30 | is eucalyptus toxic to cats | — | — |
+| Rubber Plant | rubber-plant | 2026-05-30 | is rubber plant toxic to cats | — | — |
+| Ficus | ficus | 2026-05-30 | is ficus toxic to cats | — | — |
+| Jade Plant | jade-plant | 2026-05-30 | is jade plant toxic to cats | — | — |
+| English Ivy | english-ivy | 2026-05-30 | is english ivy toxic to cats | — | — |
+| Kalanchoe | kalanchoe | 2026-05-30 | is kalanchoe toxic to cats | — | — |
+| Tradescantia | tradescantia | 2026-05-30 | is tradescantia toxic to cats | — | — |
+| Aglaonema | aglaonema | 2026-05-30 | is aglaonema toxic to cats | — | — |
+| Begonia | begonia | 2026-05-30 | are begonias toxic to cats | — | — |
+| Anthurium | anthurium | 2026-05-30 | is anthurium toxic to cats | — | — |
+| Dieffenbachia | dieffenbachia | 2026-05-30 | is dieffenbachia toxic to cats | — | — |
+| Asparagus Fern | asparagus-fern | 2026-05-30 | is asparagus fern toxic to cats | — | — |
+| Peruvian Lily | peruvian-lily | 2026-05-30 | are peruvian lilies safe for cats | — | — |
+| Rose | rose | 2026-05-30 | are roses safe for cats | — | — |
+| Basil | basil | 2026-05-30 | is basil safe for cats | — | — |
+| Catnip | catnip | 2026-05-30 | is catnip safe for cats | — | — |
+| Bromeliad | bromeliad | 2026-05-30 | are bromeliads safe for cats | — | — |
+| Areca Palm | areca-palm | 2026-05-30 | is areca palm safe for cats | — | — |
+| Bamboo | bamboo | 2026-05-30 | is bamboo safe for cats | — | — |
+| Ponytail Palm | ponytail-palm | 2026-05-30 | is ponytail palm safe for cats | — | — |

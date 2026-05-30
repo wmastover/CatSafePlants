@@ -129,6 +129,7 @@ export const plantFrontmatterSchema = z
     targetKeyword: z.string().optional(),
 
     hero: heroImageSchema,
+    heroInterior: heroImageSchema.optional(),
     facts: z.array(factSchema).min(1),
     observations: z.array(observationSchema).min(1),
     cultivars: z.array(cultivarSchema).optional(),

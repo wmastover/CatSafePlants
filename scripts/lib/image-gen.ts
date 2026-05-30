@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import {
+  buildInteriorPrompt,
   buildPrompt,
   buildCultivarPrompt,
   cultivarSlug,
@@ -305,6 +306,124 @@ export async function generatePlantImage({
       "Content-Type": "application/json",
       "HTTP-Referer": process.env.NEXT_PUBLIC_SITE_URL ?? "https://catsafeplant.com",
       "X-Title": "CatSafePlants Image Generator",
+    },
+    body: JSON.stringify(body),
+  });
+
+  const json = (await res.json()) as OpenRouterResponse;
+  if (!res.ok) {
+    throw new Error(json.error?.message ?? `OpenRouter error ${res.status}`);
+  }
+
+  const imageDataUrl = extractGeneratedImageUrl(json);
+  writeDataUrl(imageDataUrl, out);
+  return { outputPath: out, usedReferencePhoto };
+}
+
+function resolveReferenceForInterior(
+  slug: string,
+  referencePhotoPath?: string,
+): string | null {
+  if (referencePhotoPath && fs.existsSync(referencePhotoPath)) {
+    return referencePhotoPath;
+  }
+
+  const refCache = path.join(
+    process.cwd(),
+    "assets",
+    "reference-photos",
+    `${slug}-reference.jpg`,
+  );
+  if (fs.existsSync(refCache)) return refCache;
+
+  const heroPath = path.join(
+    process.cwd(),
+    "public",
+    "images",
+    "plants",
+    slug,
+    "hero.png",
+  );
+  if (fs.existsSync(heroPath)) return heroPath;
+
+  return null;
+}
+
+export async function generateInteriorPhoto({
+  slug,
+  plantName,
+  referencePhotoPath,
+  outputPath,
+  onReferenceMissing,
+}: Omit<GeneratePlantImageOptions, "cultivarName" | "cultivarSubtitle">): Promise<GeneratePlantImageResult> {
+  const apiKey = process.env.OPENROUTER_API_KEY;
+  if (!apiKey) {
+    throw new Error(
+      "OPENROUTER_API_KEY is not set. Add it to .env.local (see .env.example).",
+    );
+  }
+
+  const refCache = path.join(
+    process.cwd(),
+    "assets",
+    "reference-photos",
+    `${slug}-reference.jpg`,
+  );
+
+  let referencePath = resolveReferenceForInterior(slug, referencePhotoPath);
+  if (!referencePath) {
+    referencePath = await fetchReferencePhoto(slug, plantName, refCache);
+  }
+
+  const usedReferencePhoto = !!referencePath;
+  if (!usedReferencePhoto) {
+    onReferenceMissing?.(
+      `No reference photo found for "${plantName}" — generating interior shot from prompt only.`,
+    );
+  }
+
+  const out =
+    outputPath ??
+    path.join(
+      process.cwd(),
+      "public",
+      "images",
+      "plants",
+      slug,
+      "hero-interior.png",
+    );
+
+  const content: ContentPart[] = [];
+
+  if (referencePath) {
+    content.push({
+      type: "image_url",
+      image_url: { url: readAsDataUrl(referencePath) },
+    });
+  }
+
+  content.push({
+    type: "text",
+    text: buildInteriorPrompt(plantName, usedReferencePhoto),
+  });
+
+  const body = {
+    model: NANO_BANANA_MODEL,
+    messages: [{ role: "user", content }],
+    modalities: ["image", "text"],
+    image_config: {
+      aspect_ratio: "4:5",
+      image_size: "1K",
+    },
+  };
+
+  const res = await fetch(OPENROUTER_API_URL, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+      "HTTP-Referer": process.env.NEXT_PUBLIC_SITE_URL ?? "https://catsafeplant.com",
+      "X-Title": "CatSafePlants Interior Image Generator",
     },
     body: JSON.stringify(body),
   });
