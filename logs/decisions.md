@@ -55,3 +55,48 @@ With enough toxic plant pages live, "My cat ate a lily — what now?" is the fir
 The keyword-research.md only covers the first 20 pages. The May 30 batch of 24 is completely untracked. Created a Research ticket to backfill and identify the next 10 keyword targets.
 
 **Tickets created this round:** 14 total (Engineering: 11, Research: 1, Project Manager: 1, Operations: 0)
+
+## 2026-05-31 — PM Planning Round 4 (Sunday weekly)
+
+**Context:** 49 plant pages live (up from 44 — shipped 5 ASPCA-verified toxic pages this week: sago-palm, oleander, snake-plant, chrysanthemum, string-of-pearls). Hero art debt cleared. Engineering process update locked in (no plant page ships without hero art). Board: 5 Done from last week's tickets, 9 unstarted carrying over.
+
+**Decision 1: Hold both blocked plant pages until operator resolves ASPCA ambiguity.**
+
+`ZZ plant` and `bird of paradise` tickets remain open but cannot ship safely under our toxicity rule. Daily log flags:
+- ZZ plant: ASPCA URL renders generic list; hepper.com states it is NOT on ASPCA's list. Prime Directive forbids inference. Needs operator call to either (a) confirm with ASPCA directly, (b) approve `verdict: insufficient-data` ruling, or (c) drop.
+- Bird of paradise: Two ASPCA species (Strelitzia reginae mild vs Caesalpinia/Poinciana severe). Needs operator scope: which species do we cover, or do we ship both as a disambiguation?
+
+**UPDATE (later same day, via Telegram):** Operator resolved both.
+- ZZ plant: CONFIRMED TOXIC. Contains insoluble calcium oxalate crystals (Zamioculcas zamiifolia). Ship as TOXIC page. Operator note appended to Notion ticket.
+- Bird of paradise: SPLIT. Original ticket archived; replaced with two separate tickets (Strelitzia reginae + Caesalpinia gilliesii), each carrying a disambiguation callout and cross-link instructions.
+
+**Decision 2: Hold the lily emergency page until list pages ship.**
+
+The "My Cat Ate a Lily — what now?" emergency page is genuinely high-conversion BUT requires a new page type/template. List pages (already ticketed, no new template needed beyond layout) will produce more traffic faster and prove the SEO foundation. Emergency page stays in backlog this week; revisit once both list pages are live.
+
+**Decision 3: Ship SEO infrastructure NOW, before volume gets indexed.**
+
+The site has 49 pages, a sitemap, but no robots.txt and no GSC submission flow. Per Prime Directive: must allow GPTBot/ClaudeBot/PerplexityBot for GEO; must submit URLs to GSC API on publish. New Engineering ticket created. This is foundational and was missed — flagging in issues log as a process gap.
+
+**Decision 4: Add 6 ASPCA-unambiguous high-volume plant pages to backlog.**
+
+Gap analysis vs the published 49: missing several Tier-1/Tier-2 volume plants that are unambiguous on ASPCA, so they can ship without the operator-blockers above. Picked for traffic + monetization fit:
+- Hydrangea (toxic, very high seasonal volume)
+- Daffodil (toxic, very high spring volume)
+- Azalea (toxic, severe — moral priority)
+- Rosemary (safe, herb, recipe adjacency)
+- Thyme (safe, herb)
+- Fiddle leaf fig (toxic, trendy houseplant — huge search volume)
+
+All 6 should be writable straight from ASPCA without operator escalation.
+
+**Decision 5: Defer search tool ticket (Tier-3 PM scoping) one more week.**
+
+List pages first. Search tool only earns its keep once list pages exist to deep-link from.
+
+**Decision 6: Internal-linking audit stays priority but de-emphasized vs net-new content this week.**
+
+It's a maintenance task; carry it forward but Engineering should weight toward shipping the 6 new pages + the 2 list pages first if forced to choose.
+
+**Tickets created this round:** 8 total (Engineering: 7, Research: 1). 9 prior tickets carried over. Two carried-over tickets (ZZ plant, bird of paradise) are flagged for operator decision.
+
