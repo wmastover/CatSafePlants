@@ -29,3 +29,11 @@
 - ASPCA verification completed for every page before write; all 5 link to canonical ASPCA URLs
 - Hero images deferred to a separate batch ticket
 - SKIPPED with reason in summary: ZZ plant (ASPCA listing ambiguous — page exists at /zamioculcas-zamiifolia but renders generic list; hepper.com explicitly states it is not on ASPCA's list; needs operator call), Bird of Paradise (two ASPCA species — Strelitzia reginae is mild, Caesalpinia/Poinciana is severe — needs PM clarification on which we cover), My Cat Ate a Lily emergency page (requires new route + page template + content type — out of scope for plant-page workflow, needs PM scoping)
+
+## 2026-05-31 18:34 UTC — Hero art backfill (5 pages)
+
+**Issue:** Engineering shipped chrysanthemum, oleander, sago-palm, snake-plant, and string-of-pearls to prod without hero art. PM scope incorrectly said "24 pages" needed art; actual was 5.
+
+**Fix:** Generated all 5 via `npm run generate-image` (Nano Banana via OpenRouter). Committed in 9ee437f. Vercel deploying.
+
+**Process change:** Engineering SOUL updated with hard rule — no plant page ships to prod without hero art. Image gen step is now mandatory before commit.
