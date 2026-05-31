@@ -5,6 +5,7 @@ export const siteConfig = {
     "A careful guide to which houseplants are safe for cats — illustrated, sourced, and kept honest.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://catsafeplant.com",
   locale: "en-GB",
+  gaId: process.env.NEXT_PUBLIC_GA_ID,
   affiliate: {
     amazonTag: process.env.NEXT_PUBLIC_AMAZON_TAG ?? "catsafe-21",
     currency: "GBP",

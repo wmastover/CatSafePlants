@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { fontVariables } from "@/lib/fonts";
 import { siteLogoSrc } from "@/components/SiteLogo";
 import { siteConfig } from "@/lib/site.config";
@@ -45,6 +46,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={fontVariables}>{children}</body>
+      {siteConfig.gaId ? <GoogleAnalytics gaId={siteConfig.gaId} /> : null}
     </html>
   );
 }
