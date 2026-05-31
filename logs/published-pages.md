@@ -48,3 +48,8 @@
 | Areca Palm | areca-palm | 2026-05-30 | is areca palm safe for cats | — | — |
 | Bamboo | bamboo | 2026-05-30 | is bamboo safe for cats | — | — |
 | Ponytail Palm | ponytail-palm | 2026-05-30 | is ponytail palm safe for cats | — | — |
+| Sago Palm | sago-palm | 2026-05-31 | are sago palms toxic to cats | — | — |
+| Oleander | oleander | 2026-05-31 | is oleander toxic to cats | — | — |
+| Snake Plant | snake-plant | 2026-05-31 | is snake plant safe for cats | — | — |
+| Chrysanthemum | chrysanthemum | 2026-05-31 | are chrysanthemums toxic to cats | — | — |
+| String of Pearls | string-of-pearls | 2026-05-31 | is string of pearls toxic to cats | — | — |
