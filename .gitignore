@@ -34,3 +34,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# image-gen workflow scratch files (downloaded Wikimedia photos used as references)
+assets/reference-photos/
