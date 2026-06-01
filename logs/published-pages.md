@@ -53,3 +53,11 @@
 | Snake Plant | snake-plant | 2026-05-31 | is snake plant safe for cats | — | — |
 | Chrysanthemum | chrysanthemum | 2026-05-31 | are chrysanthemums toxic to cats | — | — |
 | String of Pearls | string-of-pearls | 2026-05-31 | is string of pearls toxic to cats | — | — |
+| Daffodil | daffodil | 2026-06-01 | are daffodils toxic to cats | — | — |
+| Hydrangea | hydrangea | 2026-06-01 | are hydrangeas toxic to cats | — | — |
+| Azalea | azalea | 2026-06-01 | are azaleas toxic to cats | — | — |
+| Fiddle Leaf Fig | fiddle-leaf-fig | 2026-06-01 | is fiddle leaf fig toxic to cats | — | — |
+| Mexican Bird of Paradise | caesalpinia-gilliesii | 2026-06-01 | is mexican bird of paradise toxic to cats | — | — |
+| Strelitzia (Bird of Paradise) | strelitzia-reginae | 2026-06-01 | is strelitzia toxic to cats | — | — |
+| Rosemary | rosemary | 2026-06-01 | is rosemary safe for cats | — | — |
+| Thyme | thyme | 2026-06-01 | is thyme safe for cats | — | — |

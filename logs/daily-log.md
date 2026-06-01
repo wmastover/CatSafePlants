@@ -37,3 +37,35 @@
 **Fix:** Generated all 5 via `npm run generate-image` (Nano Banana via OpenRouter). Committed in 9ee437f. Vercel deploying.
 
 **Process change:** Engineering SOUL updated with hard rule — no plant page ships to prod without hero art. Image gen step is now mandatory before commit.
+
+## 2026-06-01 — Engineering daily run
+
+Drained the entire Notion Engineering queue (14 tickets). 12 shipped, 2 flagged for Will's call.
+
+**Plant pages shipped (8):**
+- daffodil (4fa9f22) — toxic, ASPCA verified (Narcissus spp., lycorine alkaloids)
+- hydrangea (39fb840) — toxic, ASPCA verified (Hydrangea arborescens, cyanogenic glycoside)
+- azalea (f500908) — severely toxic, ASPCA verified (Rhododendron spp., grayanotoxin, cardiac risk)
+- fiddle-leaf-fig (4ac4bf3) — toxic, ASPCA genus-level entry (Ficus, ficin + psoralen); NCSU Extension confirms F. lyrata specifically
+- caesalpinia-gilliesii / Mexican Bird of Paradise (98c6a2a) — toxic, ASPCA verified (GI irritants)
+- strelitzia-reginae / Bird of Paradise houseplant (0fee7c8) — mildly toxic, ASPCA verified (GI irritants, fruit/seeds worst)
+- rosemary (ce8a481) — safe, ASPCA verified (Rosmarinus officinalis non-toxic)
+- thyme (0357a8e) — safe, ASPCA verified English thyme (Thymus vulgaris); flags Spanish thyme (Coleus amboinicus) as ASPCA toxic
+
+**List pages shipped (2):**
+- /cat-safe-plants/ (23f92fa) — 27,100/mo keyword
+- /houseplants-safe-for-cats/ (12409a7) — 22,200/mo keyword
+- New shared ListPage component; both have Article schema, FAQ schema, intro + curated grid
+
+**Infra shipped (2):**
+- Internal link audit (ea05a58) — bumped peace-lily relateds (2→4); added in-body links to peace-lily, boston-fern, spider-plant; logged audit results to logs/issues.md
+- SEO infrastructure (cc0b66d) — robots.ts expanded with full AI-bot allowlist + host directive; new scripts/submit-to-gsc.ts (sitemap ping + Indexing API URL submission gated on GSC_SERVICE_ACCOUNT_JSON)
+
+**Hero art:** all 8 plant pages generated via npm run generate-image (azalea required one retry; all others first attempt).
+
+**Flagged for Will (left In Progress with detailed notes):**
+- ZZ plant ticket — Zamioculcas zamiifolia is NOT on the ASPCA database. Cannot publish a toxicity claim without ASPCA backing. Note in ticket suggests two options: (a) ship as verdict: insufficient-data with non-ASPCA evidence, (b) skip.
+- "My cat ate a lily" emergency page — needs a new route type + content schema (not a plant profile). PM previously flagged the same on 2026-05-31. Offered alternative: add emergency-CTA section inside /plants/lily.
+
+**Queue size after run:** 0 Not started, 2 In progress (both flagged for review). The PM agent runs at 19:00 UTC and will scope the next batch.
+
