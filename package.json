@@ -11,7 +11,8 @@
     "generate-image": "tsx scripts/generate-plant-image.ts",
     "generate-interior-image": "tsx scripts/generate-interior-image.ts",
     "generate-cultivar-images": "tsx scripts/generate-cultivar-images.ts",
-    "restore-em-dashes": "tsx scripts/restore-em-dashes.ts"
+    "restore-em-dashes": "tsx scripts/restore-em-dashes.ts",
+    "submit-gsc": "tsx scripts/submit-to-gsc.ts"
   },
   "dependencies": {
     "@next/third-parties": "^16.2.6",
