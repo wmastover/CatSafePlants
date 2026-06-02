@@ -117,3 +117,44 @@ Will directed the Engineering agent to ship the 2 in-progress flagged tickets, m
 - `pilea-peperomioides` (Chinese money plant) — safe. ASPCA does not list P. peperomioides individually but lists two sibling Pilea species — Aluminum Plant (P. cadieri) and Friendship Plant (P. involucrata) — as non-toxic. No Pilea species on the ASPCA toxic list. aspcaUrl points to the Aluminum Plant species page (closest documented genus-mate). Disambiguates from Peperomia, money tree, and jade plant. Hero + interior art generated.
 
 Build: green. 61 plant pages total in static export.
+
+## 2026-06-02 (Round 2, ~10:00 UTC) — Engineering daily run
+
+Second cron run of the day. Drained the entire 12-ticket queue scoped by PM at 09:30 UTC. 12 shipped, 0 skipped this round.
+
+**Carry-over fix shipped:**
+- Lily emergency page restyle (commit 65f8731) — Will's review flagged the previous styling as broken: dark green BG from globals.css bleeding through with black text, unreadable. Root cause: page never wrapped content in .landing-root, so it inherited the dark site-wide body BG with no override. Fix: wrap in .emergency-root.landing-root + SiteNav (mirroring /cat-safe-plants/ pattern). Rewrote src/styles/emergency.css to use brand palette throughout — paper #fbf7ea cards on #f4efe2 base, Cormorant Garamond serif headings, DM Sans body, JetBrains Mono kickers, brick-red #b85a3a urgency accents. Verified live via screenshot post-deploy: readable, on-brand, urgency cues intact. Review ticket moved to Done.
+
+**Toxic warnings shipped (7):**
+- hyacinth (commit b151b07) — Hyacinthus orientalis, Narcissus-like alkaloids; PM URL was /hyacinth, correct URL is /garden-hyacinth
+- amaryllis (commit 06b5fa5) — Amaryllis spp., lycorine; boxed-winter-bulb gift trap
+- cyclamen (commit b0ed8a2) — DEADLY, terpenoid saponins; tuber dose differential emphasised
+- tomato-plant (commit 9403b1f) — Lycopersicon spp., solanine; fruit-safe / plant-toxic distinction
+- coleus (commit fc64c8e) — Plectranthus, essential oils; covers the Spanish Thyme genus-mate
+- schefflera (commit 63b7a97) — calcium oxalate; covers all 4 common-name variants
+- caladium (commit c4c63bb) — calcium oxalate; painted-leaf aroid family member
+
+**Safe pages shipped (3):**
+- sunflower (commit 834a556) — Helianthus, ASPCA non-toxic; warns about mixed bouquets containing lilies
+- sage (commit 37443eb) — Salvia officinalis, ASPCA non-toxic; PM URL was /garden-sage, correct URL is /sage; completes safe-herb cluster
+- mint (commit 9541b01) — TOXIC (Mentha, essential oils) per PM's explicit nuance instructions; covers the three-verdict genus split (most mints mildly toxic, pennyroyal deadly, catnip safe)
+
+**Insufficient-data shipped (1):**
+- marigold (commit 798f56d) — PM ticket said Tagetes was ASPCA non-toxic, but that's WRONG. ASPCA "Garden Marigold" entry is for Calendula officinalis (pot marigold). Tagetes (French/African — the bedding-plant most people grow) is NOT on ASPCA. Shipped as insufficient-data with full Calendula-vs-Tagetes disambiguation, following the ZZ-plant pattern.
+
+**ASPCA URL corrections made by Eng during ASPCA verification step:**
+- PM had /hyacinth → actual /garden-hyacinth
+- PM had /garden-sage → actual /sage
+- PM had /marigold → conflated two genera; actual /garden-marigold is Calendula not Tagetes
+
+**Hero art:** all 11 new plant pages have hand-drawn + interior images. No retries needed.
+
+**Build status:** green throughout. 70 plant pages + 1 toxic-plants list page + 2 safe-plants list pages + 1 library + 1 emergency route. Final commit at the end of the run: 37443eb.
+
+**YAML reminder logged again:** strings containing colons must be quoted. Three pages needed fixes during the run (mistletoe yesterday + tomato-plant + caladium + marigold today).
+
+**Vercel:** auto-deploying main on every push. Pace ~5s between commits respected.
+
+**Queue size after run:** 0 Not started, 2 In Progress (pilea + air-plant, both shipped earlier today by a separate run with operator override — but tickets still In Progress from this morning's flag). The PM agent runs at 19:00 UTC and will scope the next batch.
+
+**Note to PM:** the 3 incorrect ASPCA URLs in the morning's batch suggest a verification step before scoping. Suggest Research validates ASPCA URLs against actual species panels in the ticket-creation flow.

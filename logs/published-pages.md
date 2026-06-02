@@ -75,3 +75,14 @@
 | Toxic Plants for Cats (list) | toxic-plants-for-cats | 2026-06-02 | toxic plants for cats | — | — |
 | Air Plant | air-plant | 2026-06-02 | are air plants safe for cats | — | — |
 | Pilea Peperomioides | pilea-peperomioides | 2026-06-02 | is pilea peperomioides safe for cats | — | — |
+| Hyacinth | hyacinth | 2026-06-02 | are hyacinths toxic to cats | — | — |
+| Amaryllis | amaryllis | 2026-06-02 | is amaryllis toxic to cats | — | — |
+| Cyclamen | cyclamen | 2026-06-02 | is cyclamen toxic to cats | — | — |
+| Tomato Plant | tomato-plant | 2026-06-02 | are tomato plants toxic to cats | — | — |
+| Coleus | coleus | 2026-06-02 | is coleus toxic to cats | — | — |
+| Schefflera | schefflera | 2026-06-02 | is schefflera toxic to cats | — | — |
+| Caladium | caladium | 2026-06-02 | is caladium toxic to cats | — | — |
+| Sunflower | sunflower | 2026-06-02 | are sunflowers safe for cats | — | — |
+| Mint | mint | 2026-06-02 | is mint safe for cats | — | — |
+| Marigold | marigold | 2026-06-02 | are marigolds toxic to cats | — | — |
+| Sage | sage | 2026-06-02 | is sage safe for cats | — | — |
