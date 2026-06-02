@@ -40,6 +40,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${siteConfig.url}/toxic-plants-for-cats/`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
       url: `${siteConfig.url}/emergency/cat-ate-a-lily/`,
       lastModified: new Date("2026-06-02"),
       changeFrequency: "monthly",
