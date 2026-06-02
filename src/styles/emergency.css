@@ -1,0 +1,195 @@
+/* Emergency / action-first pages — high-urgency styling, calm but unambiguous. */
+
+.emergency-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+  font-family: var(--font-serif, Georgia, serif);
+  color: #1a1a1a;
+  line-height: 1.55;
+}
+
+.emergency-crumbs {
+  font-size: 0.875rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+.emergency-crumbs a {
+  color: #555;
+  text-decoration: none;
+  border-bottom: 1px solid #ccc;
+}
+.emergency-crumbs a:hover {
+  color: #1a1a1a;
+}
+
+.emergency-hero {
+  border: 2px solid #a52a2a;
+  background: #fff8f6;
+  border-radius: 6px;
+  padding: 1.75rem 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.emergency-kicker {
+  display: inline-block;
+  background: #a52a2a;
+  color: #fff;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.65rem;
+  border-radius: 3px;
+  margin-bottom: 0.75rem;
+}
+
+.emergency-hero h1 {
+  font-size: 2rem;
+  line-height: 1.15;
+  margin: 0 0 0.75rem;
+  color: #1a1a1a;
+}
+
+.emergency-dek {
+  font-size: 1.05rem;
+  margin: 0 0 1.25rem;
+  color: #333;
+}
+
+.emergency-cta-row {
+  margin-top: 1.25rem;
+}
+
+.emergency-cta {
+  display: inline-block;
+  background: #a52a2a;
+  color: #fff;
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-weight: 600;
+  font-size: 1.05rem;
+  padding: 0.85rem 1.25rem;
+  border-radius: 4px;
+  text-decoration: none;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+.emergency-cta:hover {
+  background: #7d1f1f;
+}
+
+.emergency-cta-note {
+  font-size: 0.85rem;
+  color: #555;
+  margin: 0.6rem 0 0;
+}
+
+.emergency-page section {
+  margin: 2.5rem 0;
+}
+
+.emergency-page h2 {
+  font-size: 1.4rem;
+  margin: 0 0 1rem;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.4rem;
+}
+
+.emergency-steps ol {
+  padding-left: 1.25rem;
+}
+.emergency-steps li {
+  margin-bottom: 0.85rem;
+}
+.emergency-steps strong {
+  color: #1a1a1a;
+}
+
+.emergency-timeline-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.emergency-timeline-grid article {
+  background: #f7f4ee;
+  border-left: 3px solid #a52a2a;
+  padding: 1rem 1.1rem;
+  border-radius: 4px;
+}
+.emergency-timeline-grid header {
+  font-family: var(--font-sans, system-ui, sans-serif);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #a52a2a;
+  margin-bottom: 0.4rem;
+}
+.emergency-timeline-grid p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.emergency-lily-list {
+  padding-left: 1.25rem;
+}
+.emergency-lily-list li {
+  margin-bottom: 0.65rem;
+}
+.emergency-lily-list a {
+  color: #1a1a1a;
+  border-bottom: 1px solid #aaa;
+  text-decoration: none;
+}
+.emergency-lily-list a:hover {
+  border-bottom-color: #1a1a1a;
+}
+
+.emergency-faq details {
+  border-top: 1px solid #ddd;
+  padding: 0.85rem 0;
+}
+.emergency-faq details summary {
+  cursor: pointer;
+  font-weight: 600;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.emergency-faq details summary::after {
+  content: "+";
+  color: #a52a2a;
+  font-weight: 400;
+}
+.emergency-faq details[open] summary::after {
+  content: "−";
+}
+.emergency-faq details p {
+  margin: 0.6rem 0 0;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.emergency-foot {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #ddd;
+  font-size: 0.85rem;
+  color: #555;
+}
+.emergency-foot p {
+  margin: 0 0 0.5rem;
+}
+.emergency-foot a {
+  color: #555;
+}
+
+@media (max-width: 480px) {
+  .emergency-hero h1 {
+    font-size: 1.65rem;
+  }
+  .emergency-cta {
+    display: block;
+    text-align: center;
+  }
+}

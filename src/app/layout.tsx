@@ -7,6 +7,7 @@ import "@/styles/globals.css";
 import "@/styles/plant-page.css";
 import "@/styles/landing.css";
 import "@/styles/library.css";
+import "@/styles/emergency.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
