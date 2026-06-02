@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SiteNav } from "@/components/SiteNav";
 import { siteConfig } from "@/lib/site.config";
 
 const pageTitle = "My Cat Ate a Lily — Emergency Action Plan";
@@ -117,7 +118,10 @@ export default function CatAteALilyEmergencyPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <main className="emergency-page">
+      <div className="emergency-root landing-root">
+        <div className="landing-grid-bg" />
+        <SiteNav />
+        <main className="emergency-page">
         <nav aria-label="Breadcrumb" className="emergency-crumbs">
           <Link href="/">Home</Link> <span aria-hidden>·</span>{" "}
           <span>Emergency</span> <span aria-hidden>·</span>{" "}
@@ -261,7 +265,8 @@ export default function CatAteALilyEmergencyPage() {
             <Link href="/plants/lily/">lily plant profile</Link> for citations.
           </p>
         </footer>
-      </main>
+        </main>
+      </div>
     </>
   );
 }

@@ -1,86 +1,101 @@
-/* Emergency / action-first pages — high-urgency styling, calm but unambiguous. */
+/* Emergency / action-first pages — brand-consistent, high-urgency calm. */
+
+.emergency-root {
+  padding: 0 64px 4rem;
+}
 
 .emergency-page {
-  max-width: 720px;
+  position: relative;
+  max-width: 760px;
   margin: 0 auto;
-  padding: 2rem 1.25rem 4rem;
-  font-family: var(--font-serif, Georgia, serif);
-  color: #1a1a1a;
-  line-height: 1.55;
+  padding: 2rem 0 4rem;
+  color: #243024;
 }
 
 .emergency-crumbs {
-  font-size: 0.875rem;
-  color: #555;
+  font-family: var(--font-jetbrains-mono), "JetBrains Mono", monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #6a7a55;
   margin-bottom: 1.5rem;
 }
 .emergency-crumbs a {
-  color: #555;
+  color: #6a7a55;
   text-decoration: none;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid rgba(106, 122, 85, 0.4);
 }
 .emergency-crumbs a:hover {
-  color: #1a1a1a;
+  color: #243024;
+  border-bottom-color: #243024;
 }
 
 .emergency-hero {
-  border: 2px solid #a52a2a;
-  background: #fff8f6;
-  border-radius: 6px;
-  padding: 1.75rem 1.5rem;
-  margin-bottom: 2rem;
+  position: relative;
+  background: #fbf7ea;
+  border: 1px solid rgba(184, 90, 58, 0.45);
+  border-left: 4px solid #b85a3a;
+  border-radius: 4px;
+  padding: 2rem 1.75rem;
+  margin-bottom: 2.5rem;
 }
 
 .emergency-kicker {
   display: inline-block;
-  background: #a52a2a;
-  color: #fff;
-  font-family: var(--font-sans, system-ui, sans-serif);
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
+  font-family: var(--font-jetbrains-mono), "JetBrains Mono", monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  padding: 0.35rem 0.65rem;
+  color: #b85a3a;
+  background: rgba(184, 90, 58, 0.08);
+  padding: 0.4rem 0.65rem;
   border-radius: 3px;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .emergency-hero h1 {
-  font-size: 2rem;
-  line-height: 1.15;
-  margin: 0 0 0.75rem;
-  color: #1a1a1a;
+  font-family: var(--font-cormorant), "Cormorant Garamond", serif;
+  font-size: clamp(2rem, 4.5vw, 2.85rem);
+  font-weight: 400;
+  line-height: 1.1;
+  margin: 0 0 1rem;
+  color: #243024;
 }
 
 .emergency-dek {
-  font-size: 1.05rem;
-  margin: 0 0 1.25rem;
-  color: #333;
+  font-family: var(--font-cormorant), "Cormorant Garamond", serif;
+  font-size: 1.15rem;
+  line-height: 1.55;
+  color: #4b5a3a;
+  margin: 0 0 1.5rem;
 }
 
 .emergency-cta-row {
-  margin-top: 1.25rem;
+  margin-top: 1.5rem;
 }
 
 .emergency-cta {
   display: inline-block;
-  background: #a52a2a;
-  color: #fff;
-  font-family: var(--font-sans, system-ui, sans-serif);
+  background: #b85a3a;
+  color: #fbf7ea;
+  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
   font-weight: 600;
-  font-size: 1.05rem;
-  padding: 0.85rem 1.25rem;
-  border-radius: 4px;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  padding: 0.95rem 1.5rem;
+  border-radius: 3px;
   text-decoration: none;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+  transition: background 0.15s;
 }
 .emergency-cta:hover {
-  background: #7d1f1f;
+  background: #9a4a2f;
 }
 
 .emergency-cta-note {
+  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
   font-size: 0.85rem;
-  color: #555;
-  margin: 0.6rem 0 0;
+  color: #6a7a55;
+  margin: 0.75rem 0 0;
 }
 
 .emergency-page section {
@@ -88,20 +103,41 @@
 }
 
 .emergency-page h2 {
-  font-size: 1.4rem;
-  margin: 0 0 1rem;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 0.4rem;
+  font-family: var(--font-cormorant), "Cormorant Garamond", serif;
+  font-size: 1.65rem;
+  font-weight: 400;
+  margin: 0 0 1.25rem;
+  color: #243024;
+  border-bottom: 1px solid rgba(60, 80, 50, 0.18);
+  padding-bottom: 0.5rem;
+}
+
+.emergency-page p,
+.emergency-page li {
+  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #243024;
 }
 
 .emergency-steps ol {
-  padding-left: 1.25rem;
+  padding-left: 1.5rem;
+  margin: 0;
 }
 .emergency-steps li {
-  margin-bottom: 0.85rem;
+  margin-bottom: 1rem;
 }
 .emergency-steps strong {
-  color: #1a1a1a;
+  color: #243024;
+  font-weight: 600;
+}
+.emergency-steps a {
+  color: #b85a3a;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(184, 90, 58, 0.45);
+}
+.emergency-steps a:hover {
+  border-bottom-color: #b85a3a;
 }
 
 .emergency-timeline-grid {
@@ -111,82 +147,109 @@
   margin-top: 1rem;
 }
 .emergency-timeline-grid article {
-  background: #f7f4ee;
-  border-left: 3px solid #a52a2a;
+  background: #fbf7ea;
+  border: 1px solid rgba(60, 80, 50, 0.12);
+  border-left: 3px solid #b85a3a;
   padding: 1rem 1.1rem;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 .emergency-timeline-grid header {
-  font-family: var(--font-sans, system-ui, sans-serif);
-  font-size: 0.8rem;
-  letter-spacing: 0.06em;
+  font-family: var(--font-jetbrains-mono), "JetBrains Mono", monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: #a52a2a;
-  margin-bottom: 0.4rem;
+  color: #b85a3a;
+  margin-bottom: 0.5rem;
+  display: block;
 }
 .emergency-timeline-grid p {
   margin: 0;
   font-size: 0.95rem;
+  color: #243024;
 }
 
 .emergency-lily-list {
-  padding-left: 1.25rem;
+  padding-left: 1.5rem;
+  margin: 0;
 }
 .emergency-lily-list li {
-  margin-bottom: 0.65rem;
+  margin-bottom: 0.7rem;
+}
+.emergency-lily-list strong {
+  color: #243024;
 }
 .emergency-lily-list a {
-  color: #1a1a1a;
-  border-bottom: 1px solid #aaa;
+  color: #243024;
+  border-bottom: 1px solid rgba(60, 80, 50, 0.35);
   text-decoration: none;
 }
 .emergency-lily-list a:hover {
-  border-bottom-color: #1a1a1a;
+  border-bottom-color: #243024;
 }
 
 .emergency-faq details {
-  border-top: 1px solid #ddd;
-  padding: 0.85rem 0;
+  border-top: 1px solid rgba(60, 80, 50, 0.18);
+  padding: 1rem 0;
+}
+.emergency-faq details:last-of-type {
+  border-bottom: 1px solid rgba(60, 80, 50, 0.18);
 }
 .emergency-faq details summary {
   cursor: pointer;
-  font-weight: 600;
+  font-family: var(--font-cormorant), "Cormorant Garamond", serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: #243024;
   list-style: none;
   display: flex;
   justify-content: space-between;
   gap: 1rem;
 }
+.emergency-faq details summary::-webkit-details-marker {
+  display: none;
+}
 .emergency-faq details summary::after {
   content: "+";
-  color: #a52a2a;
+  color: #b85a3a;
+  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
   font-weight: 400;
+  font-size: 1.25rem;
+  flex-shrink: 0;
 }
 .emergency-faq details[open] summary::after {
   content: "−";
 }
 .emergency-faq details p {
-  margin: 0.6rem 0 0;
+  margin: 0.65rem 0 0;
   font-size: 0.95rem;
-  color: #333;
+  color: #4b5a3a;
 }
 
 .emergency-foot {
   margin-top: 3rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid rgba(60, 80, 50, 0.18);
+  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
   font-size: 0.85rem;
-  color: #555;
+  color: #6a7a55;
 }
 .emergency-foot p {
   margin: 0 0 0.5rem;
+  font-size: 0.85rem;
+  color: #6a7a55;
 }
 .emergency-foot a {
-  color: #555;
+  color: #6a7a55;
+  border-bottom: 1px solid rgba(106, 122, 85, 0.4);
+  text-decoration: none;
 }
 
-@media (max-width: 480px) {
-  .emergency-hero h1 {
-    font-size: 1.65rem;
+@media (max-width: 760px) {
+  .emergency-root {
+    padding: 0 1.25rem 4rem;
+  }
+  .emergency-hero {
+    padding: 1.5rem 1.25rem;
   }
   .emergency-cta {
     display: block;
