@@ -69,3 +69,42 @@ Drained the entire Notion Engineering queue (14 tickets). 12 shipped, 2 flagged 
 
 **Queue size after run:** 0 Not started, 2 In progress (both flagged for review). The PM agent runs at 19:00 UTC and will scope the next batch.
 
+
+## 2026-06-02 — Engineering daily run
+
+Drained the entire 15-ticket Notion Engineering queue in one session. 13 shipped, 2 flagged for Will's call.
+
+**Carried-over unblocked (3 shipped):**
+- `photos-bug` (commit 5e2b486) — root cause: 13 of 57 plant MDX files were missing the heroInterior frontmatter block even though hero-interior.png existed on disk. Backfilled all 13; added heroInterior to _TEMPLATE.mdx so new-plant scaffold includes it going forward. PlantHeroGallery now renders both slides.
+- `zz-plant` (commit 1e1241f) — shipped as verdict insufficient-data per Will's instruction. Multiple non-ASPCA references (Pet Poison Helpline, Hepper, PlantCareToday). Conservative framing: treat as toxic until ASPCA lists it.
+- `cat-ate-a-lily` emergency page (commit 0c59a14) — new route `/emergency/cat-ate-a-lily/`, new action-first template (separate from plant-schema), new src/styles/emergency.css. Big phone CTA, 6-step ordered checklist, 0-2h/2-12h/12-24h/24-72h symptom timeline, which-lily-was-it disambiguation. Cross-links from /plants/lily, /plants/easter-lily, /plants/calla-lily, /plants/peruvian-lily. PM-assigned review ticket created.
+
+**Toxic warnings (7 shipped — high priority per Prime Directive):**
+- `foxglove` (commit f058592) — deadly, cardiac glycosides (Digitalis purpurea, ASPCA verified)
+- `autumn-crocus` (commit bbecf33) — deadly, colchicine (Colchicum autumnale, ASPCA verified). Page disambiguates from spring crocus.
+- `yew` (commit 99618db) — deadly, taxine alkaloids (Taxus spp., ASPCA verified via Japanese Yew entry). Page covers no-warning cardiac arrest + the aril/seed trap.
+- `mistletoe` (commit 71cb27d) — toxic, phoratoxin + viscumin (Phoradendron flavescens, ASPCA verified). December seasonal trap.
+- `holly` (commit 69a26ce) — toxic, saponins + spine injury (Ilex opaca, ASPCA verified). Genus-wide.
+- `geranium` (commit 540da50) — toxic, geraniol + linalool (Pelargonium spp., ASPCA verified). Disambiguates from true Geranium (cranesbill, not ASPCA listed).
+- `lantana` (commit 58d1956) — toxic, triterpenoids + possible liver (Lantana camara, ASPCA verified). Outdoor-cat risk.
+
+**Safe houseplants (2 shipped):**
+- `money-tree` (commit 2c6365f) — safe, ASPCA verified (Pachira aquatica, Toxic Principles None). Disambiguates from jade plant / Pilea peperomioides.
+- `peperomia` (commit 3c91683) — safe, ASPCA verified Peperomia obtusifolia (Baby Rubber Plant) + Peperomia argyreia (Watermelon Peperomia). Page covers the genus.
+
+**List page (1 shipped):**
+- `/toxic-plants-for-cats/` (commit 68db916) — mirror of `/cat-safe-plants/` for verdict=toxic. Reuses shared ListPage component, Article + FAQPage schema, FAQ covers the six deadly plants + aroid family + ASPCA-database-gap caveat. Sitemap updated.
+
+**Hero art:** all 9 new plant pages have both hand-drawn (`hero.png`) and realistic interior (`hero-interior.png`) images generated via npm run generate-image + generate-interior-image. No retries needed. Heroes display correctly thanks to the morning's frontmatter backfill.
+
+**Flagged for Will (left In Progress with detailed notes):**
+- `pilea-peperomioides` — ASPCA does NOT list Pilea peperomioides. ASPCA lists Pilea cadierei (Aluminum Plant) as non-toxic. Per Prime Directive can't ship "safe" by inference from related species. Same call as ZZ plant: ship as insufficient-data, ship under Aluminum Plant URL with explicit caveat, or reassign to Research.
+- `air-plant` (Tillandsia) — same situation as ZZ plant. The /tillandsia-air-plants ASPCA URL exists but renders the generic plant index, not a species panel. Multiple non-ASPCA sources say non-toxic. Same options.
+
+**YAML lesson:** strings containing colons must be quoted in MDX frontmatter (mistletoe FAQ had to be patched). Going forward: when a question or answer contains ` : ` or starts with a non-trivial punctuation set, wrap in double quotes.
+
+**Build status:** green throughout. 59 plant pages total in static export (up from 57). Build also covers the new /toxic-plants-for-cats route and /emergency/cat-ate-a-lily route.
+
+**Vercel:** auto-deploying main on every push. Final commit at the end of the run: 68db916.
+
+**Queue size after run:** 0 Not started, 2 In progress (pilea + air-plant — flagged for Will's call). The PM agent runs at 19:00 UTC and will scope the next batch.
