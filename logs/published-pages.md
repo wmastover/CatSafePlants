@@ -61,3 +61,17 @@
 | Strelitzia (Bird of Paradise) | strelitzia-reginae | 2026-06-01 | is strelitzia toxic to cats | — | — |
 | Rosemary | rosemary | 2026-06-01 | is rosemary safe for cats | — | — |
 | Thyme | thyme | 2026-06-01 | is thyme safe for cats | — | — |
+| ZZ Plant | zz-plant | 2026-06-02 | is zz plant toxic to cats | — | — |
+| Cat Ate a Lily (emergency) | emergency/cat-ate-a-lily | 2026-06-02 | cat ate a lily what to do | — | — |
+| Foxglove | foxglove | 2026-06-02 | are foxgloves toxic to cats | — | — |
+| Autumn Crocus | autumn-crocus | 2026-06-02 | are autumn crocus toxic to cats | — | — |
+| Yew | yew | 2026-06-02 | is yew toxic to cats | — | — |
+| Mistletoe | mistletoe | 2026-06-02 | is mistletoe toxic to cats | — | — |
+| Holly | holly | 2026-06-02 | is holly toxic to cats | — | — |
+| Geranium | geranium | 2026-06-02 | are geraniums toxic to cats | — | — |
+| Lantana | lantana | 2026-06-02 | is lantana toxic to cats | — | — |
+| Money Tree | money-tree | 2026-06-02 | is money tree safe for cats | — | — |
+| Peperomia | peperomia | 2026-06-02 | is peperomia safe for cats | — | — |
+| Toxic Plants for Cats (list) | toxic-plants-for-cats | 2026-06-02 | toxic plants for cats | — | — |
+| Air Plant | air-plant | 2026-06-02 | are air plants safe for cats | — | — |
+| Pilea Peperomioides | pilea-peperomioides | 2026-06-02 | is pilea peperomioides safe for cats | — | — |

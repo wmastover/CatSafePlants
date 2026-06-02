@@ -108,3 +108,12 @@ Drained the entire 15-ticket Notion Engineering queue in one session. 13 shipped
 **Vercel:** auto-deploying main on every push. Final commit at the end of the run: 68db916.
 
 **Queue size after run:** 0 Not started, 2 In progress (pilea + air-plant — flagged for Will's call). The PM agent runs at 19:00 UTC and will scope the next batch.
+
+## 2026-06-02 — follow-up ship of the 2 flagged tickets (operator override: lean SAFE)
+
+Will directed the Engineering agent to ship the 2 in-progress flagged tickets, marking them safe given the ASPCA gap is genus/family level rather than contradictory. Both shipped with verdict=safe, transparent body notes about the species-level ASPCA gap, and conservative framing.
+
+- `air-plant` (Tillandsia spp.) — safe. ASPCA does not list Tillandsia individually but lists multiple sibling Bromeliaceae genera (Neoregelia/blushing-bromeliad, Cryptanthus/earth-star) as non-toxic. No Bromeliaceae species appears on the ASPCA toxic list. Pet Poison Helpline treats Tillandsia as non-toxic. aspcaUrl points to the Blushing Bromeliad species page (closest documented family member). Hero + interior art generated.
+- `pilea-peperomioides` (Chinese money plant) — safe. ASPCA does not list P. peperomioides individually but lists two sibling Pilea species — Aluminum Plant (P. cadieri) and Friendship Plant (P. involucrata) — as non-toxic. No Pilea species on the ASPCA toxic list. aspcaUrl points to the Aluminum Plant species page (closest documented genus-mate). Disambiguates from Peperomia, money tree, and jade plant. Hero + interior art generated.
+
+Build: green. 61 plant pages total in static export.
