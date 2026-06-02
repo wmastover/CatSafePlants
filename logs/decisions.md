@@ -149,4 +149,57 @@ Research ticket from today's run said '50 candidate keywords pulled' but the can
 
 **Tickets created this round:** 12 Engineering. 3 carried-over flipped to Not started (ZZ, Lily emergency, photos). 1 PM ticket (search tool scoping) deferred again — list pages just shipped today, want a week of indexing data before scoping the search tool.
 
+---
+
+## 2026-06-02 09:30 UTC — PM evening planning (Round 6)
+
+**State of the board at planning time:**
+- 13 tickets shipped Done today (engineering monster day: 9 plant pages — foxglove, autumn-crocus, yew, mistletoe, holly, geranium, lantana, money-tree, peperomia + ZZ + lily-emergency + toxic-plants list page + photos-bug fix).
+- 67 plant pages live on disk + 1 list page (toxic-plants-for-cats) + 1 emergency page (cat-ate-a-lily). All 67 have hero.png AND hero-interior.png — zero asset debt. Filesystem verified.
+- Carried into evening: Engineering queue empty (0 Not started). 2 In progress: pilea-peperomioides + air-plant (Tillandsia). Both blocked on the same problem as ZZ — ASPCA URL renders generic list, not a species panel. Engineering already wrote operator-decision notes in the tickets.
+- 2 PM tickets Not Started: cat-ate-a-lily review (created today by Eng), Tier-3 search tool scoping (deferred since 2026-05-31).
+
+**Decision 11: Don't re-flip pilea / air plant — wait for Will.**
+
+Engineering correctly stopped on both. They are not the same situation as ZZ (where non-ASPCA sources called it toxic, so we shipped 'insufficient-data, treat as toxic'). Pilea and air plant are widely reported as SAFE by non-ASPCA sources, so the conservative 'treat as toxic until ASPCA' framing doesn't fit cleanly. I'm flagging both to Will in the evening Telegram summary and leaving the tickets In Progress. No re-route.
+
+**Decision 12: Scope an 11-ticket Engineering batch driven by DataForSEO volumes pulled this evening.**
+
+Queue was empty so this is a fresh batch, not a top-up. Selection criteria, in order:
+1. ASPCA-unambiguous (no operator decision needed mid-run).
+2. High-impact toxic warnings first (Prime Directive moral priority).
+3. High-volume safe pages for affiliate + GEO citations.
+4. Volume ≥ 200/mo unless safety urgency is high (cyclamen is 480/mo but deadly; included).
+
+Volume data pulled fresh from DataForSEO `keywords_data/google_ads/search_volume/live`, US/EN, this evening. Cost ≈ $0.06.
+
+Toxic warnings (6):
+- hyacinth (2,900/mo) — spring seasonal companion to daffodil/tulip; ASPCA verified
+- amaryllis (1,000/mo) — winter-holiday companion to poinsettia/mistletoe; ASPCA verified
+- tomato plant (880/mo) — interesting 'fruit safe / plant toxic' angle; ASPCA verified
+- coleus (720/mo) — ties into existing Spanish thyme flag on /plants/thyme; ASPCA verified
+- cyclamen (480/mo) — DEADLY (tubers fatal); included on safety urgency despite middling volume
+- schefflera / umbrella plant (320 + 90/mo combined under one slug) — common houseplant; ASPCA verified
+
+Safe houseplants / herbs (4):
+- sunflower (1,600/mo) — ASPCA non-toxic; fits the herb/safe cut-flower cluster
+- sage (1,000/mo) — ASPCA non-toxic Salvia officinalis; completes herb cluster (basil+rosemary+thyme already live)
+- mint (1,600/mo) — NUANCED: ASPCA actually flags Garden Mint as TOXIC. Page must lead with the toxicity, not default-claim safe. This is the trickiest ticket in the batch — explicit instructions in ticket body.
+- marigold (1,300 + 590/mo combined for toxic and safe phrasings) — ASPCA-classified NON-TOXIC for Tagetes, but lead phrasing is 'are marigolds toxic to cats' so this is a reassurance page. Must disambiguate Marsh Marigold (TOXIC).
+
+Long-tail unambiguous toxic (1):
+- caladium (210/mo) — modest volume but trendy aroid; rounds out the calcium-oxalate cluster (pothos, philodendron, dieffenbachia, peace-lily).
+
+**Decision 13: Defer search tool scoping AGAIN.**
+
+List pages went live yesterday. Still want indexing/traffic data first. Will revisit Sunday weekly.
+
+**Decision 14: Notion 'Eng: fix missing photos' ticket — Done today, archived implicitly.**
+
+Engineering's commit 5e2b486 backfilled heroInterior frontmatter on the 13 affected files. PlantHeroGallery now renders both slides. No follow-up needed. Logged here for audit trail.
+
+**Queue going into 2026-06-03 morning Eng run:** 11 Engineering tickets Not Started + 2 In Progress (Will-blocked). Total actionable = 11. Inside 8–15 target band, leaning toward batch ceiling so Engineering has runway if Will unblocks pilea/air-plant mid-run.
+
+**Tickets created this round:** 11 Engineering. 0 Research / Operations / PM. Pilea + Air Plant left In Progress for Will.
+
 
