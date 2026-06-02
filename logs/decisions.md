@@ -100,3 +100,53 @@ It's a maintenance task; carry it forward but Engineering should weight toward s
 
 **Tickets created this round:** 8 total (Engineering: 7, Research: 1). 9 prior tickets carried over. Two carried-over tickets (ZZ plant, bird of paradise) are flagged for operator decision.
 
+---
+
+## 2026-06-01 19:00 UTC — PM evening planning
+
+**State of the board at planning time:**
+- 20 tickets shipped Done today (massive Engineering day: 8 plant pages, 2 list pages, SEO infra, internal-link audit, hero backfill resolution + 2 Research tickets).
+- Filesystem verified: 57 plant pages on disk, 57 hero directories, every directory populated with ≥ 2 images. No missing assets.
+- Carried over from this morning: ZZ plant (In Progress, Eng blocked) + Lily emergency (In Progress, Eng blocked) + Eng: fix missing photos (Not started, vague) + 1 PM ticket (search tool scoping).
+
+**Decision 7: Unblock both stuck Engineering tickets — Will already resolved them today.**
+
+Will's resolutions were captured in the Notion ticket bodies but Engineering didn't act on them (the resolutions landed after their daily run started). Flipped both to Not started with explicit directions:
+- ZZ plant: ship verdict `insufficient-data` with multiple non-ASPCA refs (Pet Poison Helpline, Hepper, PlantCareToday, ASPCA's general insoluble-calcium-oxalate page). Conservative framing: 'treat as toxic until ASPCA lists it.'
+- Lily emergency: build new route `/emergency/cat-ate-a-lily/` with action-first emergency template (no affiliate, no lookalikes). After shipping, create review ticket for Will.
+
+**Decision 8: Reframe the 'fix missing photos' ticket — it's a template bug, not missing assets.**
+
+Will's complaint (azalea showing only one image) is real, but every page on disk has both hero.png (botanical) and hero-interior.png (realistic). Reframed the ticket: this is a template/rendering issue. Appended diagnostic instructions for Eng to inspect the plant-page component, identify why hero-interior isn't rendering, backfill frontmatter if needed, verify on recent toxic batch, screenshot before/after.
+
+**Decision 9: Scope the next Engineering batch (12 new tickets) — high-impact toxic + trendy safe.**
+
+Gap analysis vs the 57 published pages identifies major ASPCA-unambiguous misses. Picked for moral priority + traffic + monetization fit. Order in queue is intentional: shipped-blockers first, then toxic warnings (Prime Directive priority), then high-volume safe pages, then list-page infra.
+
+Toxic warnings (7):
+- Foxglove (cardiac glycosides, deadly)
+- Autumn crocus (colchicine, deadly — needs to disambiguate from spring crocus)
+- Yew (taxine, deadly)
+- Mistletoe (seasonal)
+- Holly (seasonal)
+- Geranium / Pelargonium (very common — must disambiguate from hardy Geranium/cranesbill)
+- Lantana
+
+Safe houseplants (4 — trendy, strong affiliate fit):
+- Pilea peperomioides (Chinese money plant — strong lookalike swap for ZZ plant)
+- Peperomia genus
+- Air plant / Tillandsia
+- Money tree / Pachira aquatica
+
+Infra/list (1):
+- Toxic Plants for Cats list page (mirror of /cat-safe-plants list page; reuses ListPage component)
+
+**Decision 10: Keyword research backlog needs sync.**
+
+Research ticket from today's run said '50 candidate keywords pulled' but the candidates were never logged to keyword-research.md (only the 37 published rows were recorded). Not creating a new ticket for this today — flagging in this note. If tomorrow's Eng run needs precise volume data for the 12 new pages, they can pull single-keyword volumes from DataForSEO inline. Will address with Research on the next planning cycle if it bites.
+
+**Queue going into 2026-06-02 morning Eng run:** 15 Engineering tickets Not Started. Healthy. Within 8–15 target band.
+
+**Tickets created this round:** 12 Engineering. 3 carried-over flipped to Not started (ZZ, Lily emergency, photos). 1 PM ticket (search tool scoping) deferred again — list pages just shipped today, want a week of indexing data before scoping the search tool.
+
+
