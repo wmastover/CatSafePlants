@@ -87,3 +87,4 @@
 | Marigold | marigold | 2026-06-02 | are marigolds toxic to cats | — | — |
 | Sage | sage | 2026-06-02 | is sage safe for cats | — | — |
 | Zinnia | zinnia | 2026-06-03 | are zinnias safe for cats | — | — |
+| Petunia | petunia | 2026-06-03 | are petunias safe for cats | — | — |
