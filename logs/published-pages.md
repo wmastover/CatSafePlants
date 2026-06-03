@@ -93,3 +93,4 @@
 | Boxwood | boxwood | 2026-06-03 | is boxwood toxic to cats | — | — |
 | Carnation | carnation | 2026-06-03 | are carnations toxic to cats | — | — |
 | Wisteria | wisteria | 2026-06-03 | is wisteria toxic to cats | — | — |
+| Peony | peony | 2026-06-03 | are peonies toxic to cats | — | — |
