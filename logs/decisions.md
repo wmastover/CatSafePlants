@@ -203,3 +203,52 @@ Engineering's commit 5e2b486 backfilled heroInterior frontmatter on the 13 affec
 **Tickets created this round:** 11 Engineering. 0 Research / Operations / PM. Pilea + Air Plant left In Progress for Will.
 
 
+
+
+## 2026-06-02 19:00 UTC — PM evening planning (Round 7)
+
+**State of the board at planning time:**
+- Engineering shipped ~24 pages today across two cron runs (morning + ~10:00 round-2). Daily-log captured the detail. Notion CompletedDate query returned only 2 — Engineering's Done-flip is only partially writing CompletedDate. Filesystem + daily-log are the source of truth; trust those over Notion counts for now.
+- 80 plant pages live on disk + 1 toxic-list + 1 safe-houseplant-list + 1 cat-safe-plants list + 1 library + 1 emergency route. All 80 plant pages have hero.png AND hero-interior.png. Zero asset debt. Verified via shell loop.
+- Open going into the evening: 1 Eng (vague styling ticket Will filed mid-day), 1 Research stretch question, 1 deferred PM ticket. Engineering queue effectively empty.
+
+**Decision 15: Will's user-research signal trumps fresh species pages tomorrow.**
+
+Will filed an Eng ticket today flagging two real UX problems: (a) the three list pages introduce a new font + center-aligned typography that doesn't match the rest of the blog, and (b) the homepage has no path to any of the list pages or the emergency page. This is direct user feedback from the operator. Folded into the morning batch as ticket #1 with concrete scope: parity audit against plant-page + landing CSS, plus homepage nav additions (with the emergency link getting an urgency cue). Will-filed ticket left in place — it will be auto-superseded when Engineering completes the more specific one I scoped.
+
+**Decision 16: Cut-flower + outdoor-garden cluster is tomorrow's species batch.**
+
+We've drained the obvious houseplant verticals (aroids, palms, ferns, succulents, herbs). The remaining high-impact untouched ground is outdoor garden + cut-flower territory: spring bulbs, climbers, hedge shrubs, bouquet staples. Tomorrow's batch is built around that cluster.
+
+Toxic warnings (7) — ASPCA pre-verified, verdicts baked into ticket Verification blocks:
+- lily-of-the-valley (DEADLY — cardenolides; pairs with /emergency/cat-ate-a-lily/, must clarify it's NOT a true lily)
+- hosta (saponins; ubiquitous shade perennial; clarify NOT a true lily despite 'Plantain Lily' common name)
+- iris (pentacyclic terpenoids; rhizome concentration angle; clarify 'Snake Lily' is NOT a true lily)
+- peony (paeonol; cut-flower correction page — counterintuitive verdict)
+- wisteria (lectin + wisterin; seed-pod risk angle)
+- carnation (mild irritant; covers Sweet William; reassurance/correction page for grocery-bouquet staple)
+- boxwood (alkaloids; outdoor-cat hedge trap)
+- morning-glory (indole alkaloids; LSD-family — unique seed/hallucination angle)
+
+Wait — that's 8 toxic + 3 safe + 1 styling/IA = 12. Recount confirmed: 12 tickets total.
+
+Safe pages (3) — ASPCA pre-verified non-toxic:
+- dahlia, petunia, zinnia — completes the safe-cut-flower cluster (rose, sunflower, peruvian-lily already live). All three from ASPCA cats master non-toxic list.
+
+**Decision 17: Skip hibiscus / jasmine / croton for now.**
+
+Pre-verification surfaced ASPCA listing ambiguities (hibiscus has a Rose of Sharon split; jasmine has multiple genera with different verdicts; croton URL didn't resolve under the obvious slug). Not worth the Engineering risk when there are 8+ unambiguous candidates. Will scope these to Research instead on the next planning cycle with explicit URL-validation requirements.
+
+**Decision 18: Notion CompletedDate hygiene needs Engineering attention.**
+
+Today's CompletedDate-equals-today query returned 2 results despite ~24 pages shipping. Engineering is flipping Status=Done but not consistently writing CompletedDate. Not creating a ticket today — flagging here. Will mention in the Telegram summary so Will can decide whether to push a SOUL update to Engineering. Until then, I'll triangulate ship counts from daily-log + filesystem (the actual sources of truth).
+
+**Decision 19: Defer PM Tier-3 search-tool scoping again.**
+
+Same reasoning as last week: want indexing/traffic data before scoping. Will be 4 days post-list-page-ship by Sunday — revisit then.
+
+**Queue going into 2026-06-03 morning Eng run:** 12 Engineering tickets Not Started (1 styling/IA + 8 toxic + 3 safe). Inside 8-15 target band. Engineering will likely drain in 1-2 runs.
+
+**Carry-over PM / Research tickets:** 1 PM (Tier-3 search), 1 Research (3-month money question). Neither blocking.
+
+**Tickets created this round:** 12 Engineering. 0 PM / Research / Operations.
