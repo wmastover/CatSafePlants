@@ -366,3 +366,143 @@
     grid-column: 1 / -1;
   }
 }
+
+/* Emergency link cue in top nav */
+.landing-nav-right a.landing-nav-emergency {
+  color: #b85a3a;
+  font-weight: 600;
+  position: relative;
+}
+.landing-nav-right a.landing-nav-emergency:hover {
+  color: #8e3a1f;
+}
+.landing-nav-right a.landing-nav-emergency::before {
+  content: "⚠";
+  margin-right: 4px;
+  font-size: 11px;
+}
+
+/* Information-architecture section — homepage card grid for list pages + emergency */
+.landing-ia {
+  position: relative;
+  padding: 80px 64px 96px;
+  border-top: 1px solid rgba(60, 80, 50, 0.18);
+}
+
+.landing-ia-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.landing-ia-kicker {
+  font-family: var(--font-jetbrains-mono), "JetBrains Mono", monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #6a7a55;
+  margin: 0 0 0.75rem;
+}
+
+.landing-ia-title {
+  font-family: var(--font-cormorant), "Cormorant Garamond", serif;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 400;
+  line-height: 1.08;
+  margin: 0 0 2.5rem;
+  color: #243024;
+}
+
+.landing-ia-title em {
+  font-style: italic;
+}
+
+.landing-ia-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.landing-ia-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.5rem 1.5rem 1.75rem;
+  border: 1px solid rgba(60, 80, 50, 0.18);
+  background: #fbf7ea;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+
+.landing-ia-card:hover {
+  border-color: #2f4530;
+  box-shadow: 0 4px 24px rgba(47, 69, 48, 0.08);
+  transform: translateY(-2px);
+}
+
+.landing-ia-card-tag {
+  font-family: var(--font-jetbrains-mono), "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #5b7a4a;
+}
+
+.landing-ia-card-tag.warn {
+  color: #b85a3a;
+}
+
+.landing-ia-card-tag.emergency {
+  color: #b85a3a;
+  font-weight: 700;
+}
+
+.landing-ia-card h3 {
+  font-family: var(--font-cormorant), "Cormorant Garamond", serif;
+  font-size: 1.65rem;
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.15;
+  color: #243024;
+}
+
+.landing-ia-card p {
+  font-family: var(--font-cormorant), "Cormorant Garamond", serif;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: #4b5a3a;
+  margin: 0.25rem 0 0;
+}
+
+.landing-ia-card.landing-ia-card-emergency {
+  border-color: rgba(184, 90, 58, 0.45);
+  background: #fdf2ec;
+}
+
+.landing-ia-card.landing-ia-card-emergency:hover {
+  border-color: #b85a3a;
+  box-shadow: 0 4px 24px rgba(184, 90, 58, 0.18);
+}
+
+.landing-ia-card.landing-ia-card-emergency h3 {
+  color: #8e3a1f;
+}
+
+@media (max-width: 1024px) {
+  .landing-ia {
+    padding: 64px 40px 80px;
+  }
+}
+
+@media (max-width: 760px) {
+  .landing-ia {
+    padding: 48px 20px 64px;
+  }
+  .landing-ia-grid {
+    grid-template-columns: 1fr;
+  }
+  .landing-nav-right {
+    gap: 16px;
+    font-size: 10px;
+  }
+}

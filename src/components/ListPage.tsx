@@ -50,7 +50,7 @@ export function ListPage({
         <p className="library-dek">{dek}</p>
       </header>
 
-      <section className="list-intro" style={{ maxWidth: 760, margin: "0 auto 2.5rem", padding: "0 1.5rem" }}>
+      <section className="list-intro">
         {intro}
       </section>
 
@@ -60,10 +60,7 @@ export function ListPage({
 
       {afterGrid}
 
-      <section
-        className="list-footer-cta"
-        style={{ maxWidth: 760, margin: "3rem auto 4rem", padding: "0 1.5rem", textAlign: "center" }}
-      >
+      <section className="list-footer-cta">
         <p>
           See the complete database — including toxic plants to avoid — in the{" "}
           <Link href="/library/">full library</Link>.

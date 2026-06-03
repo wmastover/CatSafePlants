@@ -144,7 +144,6 @@ export default function ToxicPlantsForCatsListPage() {
         afterGrid={
           <section
             className="list-faq"
-            style={{ maxWidth: 760, margin: "3rem auto 0", padding: "0 1.5rem" }}
           >
             <h2>Toxic plants for cats — common questions</h2>
             <h3>What is the most toxic plant for cats?</h3>

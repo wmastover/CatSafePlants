@@ -86,7 +86,6 @@ export default function CatSafePlantsListPage() {
         afterGrid={
           <section
             className="list-faq"
-            style={{ maxWidth: 760, margin: "3rem auto 0", padding: "0 1.5rem" }}
           >
             <h2>Cat-safe plants — common questions</h2>
             <h3>What plant is 100% safe for cats?</h3>
