@@ -90,3 +90,4 @@
 | Petunia | petunia | 2026-06-03 | are petunias safe for cats | — | — |
 | Dahlia | dahlia | 2026-06-03 | are dahlias safe for cats | — | — |
 | Morning Glory | morning-glory | 2026-06-03 | is morning glory toxic to cats | — | — |
+| Boxwood | boxwood | 2026-06-03 | is boxwood toxic to cats | — | — |
