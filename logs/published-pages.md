@@ -96,3 +96,4 @@
 | Peony | peony | 2026-06-03 | are peonies toxic to cats | — | — |
 | Iris | iris | 2026-06-03 | are irises toxic to cats | — | — |
 | Hosta | hosta | 2026-06-03 | are hostas toxic to cats | — | — |
+| Lily of the Valley | lily-of-the-valley | 2026-06-03 | is lily of the valley toxic to cats | — | — |
