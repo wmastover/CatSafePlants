@@ -158,3 +158,37 @@ Second cron run of the day. Drained the entire 12-ticket queue scoped by PM at 0
 **Queue size after run:** 0 Not started, 2 In Progress (pilea + air-plant, both shipped earlier today by a separate run with operator override — but tickets still In Progress from this morning's flag). The PM agent runs at 19:00 UTC and will scope the next batch.
 
 **Note to PM:** the 3 incorrect ASPCA URLs in the morning's batch suggest a verification step before scoping. Suggest Research validates ASPCA URLs against actual species panels in the ticket-creation flow.
+
+## 2026-06-03 — Engineering daily run
+
+Drained the queue: 13 tickets, 13 shipped.
+
+**Plant pages (11) — all ASPCA-verified URLs (200) pre-flight:**
+- zinnia (commit 9d99deb) — safe, ASPCA non-toxic, Compositae cluster
+- petunia (commit ecd435b) — safe, ASPCA non-toxic, with Solanaceae-not-destiny + Calibrachoa caveat
+- dahlia (commit 6d12488) — safe, ASPCA non-toxic, late-summer cut-flower
+- morning-glory (commit 0f17d20) — toxic, indole alkaloids (LSD family) in seeds, ASPCA verified
+- boxwood (commit cf58484) — toxic, buxine alkaloids, suburban hedge / outdoor cat angle
+- carnation (commit feff1c6) — toxic mild, covers Sweet William, ASPCA verified
+- wisteria (commit 1c9e2d0) — toxic, lectin + wisterin, seed-pod-is-worst-case warning
+- peony (commit 048e761) — toxic, paeonol, counterintuitive cut-flower verdict
+- iris (commit 5cf3532) — toxic, terpenoids in rhizome, NOT-a-true-lily disambiguation
+- hosta (commit 8f56bd7) — toxic, saponins, NOT-a-true-lily disambiguation (Plantain Lily)
+- lily-of-the-valley (commit 3a787df) — DEADLY, cardiac glycosides, NOT-a-true-lily but equally urgent
+
+**UI fix (1):**
+- list-page typography parity + homepage IA links (commit 820c385) — fixes Will's Eng: Fix styling complaint at the source. Root cause was `.list-intro` paragraphs inheriting body DM Sans sans-serif (no font-family override) instead of plant-page Cormorant Garamond. Added `.list-intro / .list-footer-cta / .list-faq` CSS to library.css with the plant-page font stack and left alignment. Removed conflicting inline styles on list-faq sections. Homepage now has 4 nav links (Safe / Toxic / Library / Emergency with brick-red ⚠) AND a new `.landing-ia` card-grid section between hero and footer with Safe / Safe houseplants / Toxic / Emergency cards.
+
+**YAML reminders logged again:** strings with colons OR apostrophes need explicit double-quote wrapping. Three colons (dahlia FAQ, wisteria FAQ, peony FAQ) and one apostrophe (Zinnia 'Benary's Giant' cultivar name) caught by the build. Plus six metaDescriptions ran over the 155-char Zod limit on first draft and were tightened.
+
+**Will-superseded ticket:** the original "Eng: Fix styling" raw ticket (PID 373e0560-4db9-8079-bcb1-dda99fe4edc4, Created By Will) was closed Done with a body note linking to the PM-formalised ticket that shipped the fix.
+
+**Build status:** green throughout (~91 plant pages now in the index, including the 11 new ones).
+
+**Hero art:** all 22 image generations (11 hero + 11 interior) succeeded on first try. No retries needed.
+
+**Queue size after run:** 0 Not started, 0 In Progress for Engineering. Full drain.
+
+**Vercel:** auto-deploying main on every push. ~5s pacing between commits respected.
+
+**Note to PM:** the carnation page is technically toxic (mild) — included a calibrated-risk framing in the body to avoid scaring owners off bouquets entirely, while still respecting the ASPCA verdict. Worth a PM review pass to confirm the tone is right; revert verdict text if too soft.
