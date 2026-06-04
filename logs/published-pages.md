@@ -100,3 +100,4 @@
 | Polka Dot Plant | polka-dot-plant | 2026-06-04 | is polka dot plant safe for cats | — | — |
 | Snapdragon | snapdragon | 2026-06-04 | are snapdragons safe for cats | — | — |
 | Gladiolus | gladiolus | 2026-06-04 | are gladiolus toxic to cats | — | — |
+| Gerbera Daisy | gerbera-daisy | 2026-06-04 | are gerbera daisies toxic to cats | — | — |
