@@ -108,3 +108,4 @@
 | Dill | dill | 2026-06-04 | is dill safe for cats | — | — |
 | Chives | chives | 2026-06-04 | are chives toxic to cats | — | — |
 | Oregano | oregano | 2026-06-04 | is oregano safe for cats | — | — |
+| Parsley | parsley | 2026-06-04 | is parsley safe for cats | — | — |
