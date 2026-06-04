@@ -106,3 +106,4 @@
 | Arrowhead Vine | arrowhead-vine | 2026-06-04 | is arrowhead plant toxic to cats | — | — |
 | Hibiscus | hibiscus | 2026-06-04 | is hibiscus toxic to cats | — | — |
 | Dill | dill | 2026-06-04 | is dill safe for cats | — | — |
+| Chives | chives | 2026-06-04 | are chives toxic to cats | — | — |
