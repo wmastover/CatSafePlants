@@ -102,3 +102,4 @@
 | Gladiolus | gladiolus | 2026-06-04 | are gladiolus toxic to cats | — | — |
 | Gerbera Daisy | gerbera-daisy | 2026-06-04 | are gerbera daisies toxic to cats | — | — |
 | Baby's Breath | babys-breath | 2026-06-04 | is baby's breath toxic to cats | — | — |
+| Norfolk Island Pine | norfolk-island-pine | 2026-06-04 | is norfolk pine safe for cats | — | — |
