@@ -98,3 +98,4 @@
 | Hosta | hosta | 2026-06-03 | are hostas toxic to cats | — | — |
 | Lily of the Valley | lily-of-the-valley | 2026-06-03 | is lily of the valley toxic to cats | — | — |
 | Polka Dot Plant | polka-dot-plant | 2026-06-04 | is polka dot plant safe for cats | — | — |
+| Snapdragon | snapdragon | 2026-06-04 | are snapdragons safe for cats | — | — |
