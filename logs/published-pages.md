@@ -104,3 +104,4 @@
 | Baby's Breath | babys-breath | 2026-06-04 | is baby's breath toxic to cats | — | — |
 | Norfolk Island Pine | norfolk-island-pine | 2026-06-04 | is norfolk pine safe for cats | — | — |
 | Arrowhead Vine | arrowhead-vine | 2026-06-04 | is arrowhead plant toxic to cats | — | — |
+| Hibiscus | hibiscus | 2026-06-04 | is hibiscus toxic to cats | — | — |
