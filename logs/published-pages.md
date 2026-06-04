@@ -107,3 +107,4 @@
 | Hibiscus | hibiscus | 2026-06-04 | is hibiscus toxic to cats | — | — |
 | Dill | dill | 2026-06-04 | is dill safe for cats | — | — |
 | Chives | chives | 2026-06-04 | are chives toxic to cats | — | — |
+| Oregano | oregano | 2026-06-04 | is oregano safe for cats | — | — |
