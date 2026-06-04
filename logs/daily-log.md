@@ -192,3 +192,35 @@ Drained the queue: 13 tickets, 13 shipped.
 **Vercel:** auto-deploying main on every push. ~5s pacing between commits respected.
 
 **Note to PM:** the carnation page is technically toxic (mild) — included a calibrated-risk framing in the body to avoid scaring owners off bouquets entirely, while still respecting the ASPCA verdict. Worth a PM review pass to confirm the tone is right; revert verdict text if too soft.
+
+## 2026-06-04 — Engineering daily run
+
+**Pages shipped (12):**
+- polka-dot-plant (commit 0f156ce) — safe, ASPCA non-toxic, small-pot houseplant cluster; Baby's Tears name-collision disambiguation
+- snapdragon (commit c0081bd) — safe, ASPCA non-toxic, cottage-garden cut-flower cluster; ASPCA URL slug `/common-snapdragon` noted
+- gladiolus (commit bca5222) — toxic, corm-concentrated unknown irritant, Iridaceae (same family as iris); ASPCA URL slug `/gladiola` noted
+- gerbera-daisy (commit 36a2ca4) — safe, ASPCA non-toxic, daisy-family-is-mixed framing with chrysanthemum contrast; ASPCA URL slug `/gerber-daisy` noted
+- babys-breath (commit f57b1e1) — safe (ASPCA correction page), ASPCA literally lists "Toxic Principles: Non-toxic" — explicitly addresses third-party "mildly toxic" blog claims
+- norfolk-island-pine (commit bf664ed) — safe, ASPCA non-toxic via `/australian-pine` entry; critical NOT-a-sago-palm disambiguation
+- arrowhead-vine (commit c6fddb0) — toxic, insoluble calcium oxalates, Araceae aroid; mirrors pothos/philodendron/monstera framing
+- hibiscus (commit 35b7241) — safe, ASPCA non-toxic on both `/hibiscus` and `/rose-sharon` entries; covers Rose of Sharon + tropical hibiscus by extension; oleander/mandevilla misidentification warning
+- dill (commit dfbcc62) — safe, ASPCA non-toxic, Apiaceae family but without parsley's furanocoumarins; concentrated-essential-oil caveat
+- chives (commit 778700e) — TOXIC, Allium / N-propyl disulfide, Heinz body anemia framing (NOT just mild GI); cooked/dried/powdered all dangerous
+- oregano (commit fb47245) — toxic, carvacrol+thymol phenolic essential oils, UGT1A6 glucuronidation deficiency in cats; live plant vs concentrated oil distinction
+- parsley (commit c4c886a) — toxic (calibrated), furanocoumarins / photosensitization; ASPCA's "large amounts are needed" clause explicitly quoted for dose-context
+
+**Build status:** green throughout (114 static pages now, up from 104 — +10 = 12 plant pages + a few index re-renders).
+
+**Hero art:** all 12 hero + 12 interior images generated and committed. 3 initial failures (hibiscus, chives, oregano) on the first parallel batch were due to local Node.js worker fork EAGAIN exhaustion (running all 12 npm jobs concurrently overwhelmed local PIDs), not OpenRouter rate limiting. Serial retry succeeded immediately. Lesson for future runs: 4-at-a-time batching is safer than full 12-way parallel for `npm run` jobs.
+
+**ASPCA URL slug-shifts (pre-baked by PM in Verification blocks, all verified 200):** `/common-snapdragon`, `/gladiola`, `/gerber-daisy`, `/arrow-head-vine`, `/australian-pine`, `/rose-sharon` (sibling of `/hibiscus`).
+
+**YAML reminders:** apostrophe in "Baby's Breath" title required double-quote wrapping; one colon in gerbera FAQ answer caught and rewritten. No other YAML caught by the build this run.
+
+**Will-flagged items / things needing PM or Will review:**
+- Parsley page leans on the "calibrated risk" framing (like mint/carnation) — explicitly tells owners that garnish doses are low practical risk per ASPCA's own "large amounts are needed" clause. Worth a PM tone check; revert to harder-line toxic framing if too soft.
+- Chives page intentionally takes a sharper warning tone than the typical "toxic herb" page (Heinz body anemia is more serious than mild GI). Wanted to make sure the systemic-anemia mechanism reads clearly without being alarmist. PM review welcome.
+
+**Queue size after run:** 0 Not started, 0 In progress for Engineering. Full drain.
+
+**Vercel:** auto-deploying main on every push. ~5s pacing between commits respected.
