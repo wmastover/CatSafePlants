@@ -120,3 +120,4 @@
 | Cilantro | cilantro | 2026-06-05 | is cilantro safe for cats | — | — |
 | Shamrock Plant | shamrock-plant | 2026-06-05 | are shamrock plant toxic to cats | — | — |
 | Heavenly Bamboo | heavenly-bamboo | 2026-06-05 | are heavenly bamboo toxic to cats | — | — |
+| Lemon Grass | lemon-grass | 2026-06-05 | is lemongrass safe for cats | — | — |
