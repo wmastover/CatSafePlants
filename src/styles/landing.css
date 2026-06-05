@@ -18,6 +18,16 @@
   background-image: linear-gradient(to right, rgba(60, 80, 50, 0.04) 1px, transparent 1px);
   background-size: calc(100% / 12) 100%;
   pointer-events: none;
+  z-index: 0;
+}
+
+/* Ensure all direct children of .landing-root sit above the grid-bg.
+   Without this, the absolutely-positioned grid overlay can render on top
+   of in-flow sections (notably .list-footer-cta on /toxic-plants-for-cats/
+   and /cat-safe-plants/) because they share the same stacking context. */
+.landing-root > *:not(.landing-grid-bg) {
+  position: relative;
+  z-index: 1;
 }
 
 .landing-nav {

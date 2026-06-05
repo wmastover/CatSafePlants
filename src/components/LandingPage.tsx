@@ -43,12 +43,7 @@ export function LandingPage() {
             cat <em>safe</em> plants
           </Link>
           <div className="landing-nav-right">
-            <Link href="/cat-safe-plants/">Safe plants</Link>
-            <Link href="/toxic-plants-for-cats/">Toxic plants</Link>
             <Link href="/library/">Library</Link>
-            <Link href="/emergency/cat-ate-a-lily/" className="landing-nav-emergency">
-              Emergency
-            </Link>
           </div>
         </nav>
 
