@@ -252,3 +252,100 @@ Same reasoning as last week: want indexing/traffic data before scoping. Will be 
 **Carry-over PM / Research tickets:** 1 PM (Tier-3 search), 1 Research (3-month money question). Neither blocking.
 
 **Tickets created this round:** 12 Engineering. 0 PM / Research / Operations.
+
+
+## 2026-06-03 19:00 UTC — PM evening planning (Round 8)
+
+**State at planning time:**
+- Engineering shipped 13 tickets today (11 plant pages + 1 list-page typography + IA fix + 1 superseded styling ticket). Full drain. Daily-log captured the detail; CompletedDate hygiene is now correct (13/13 stamped — engineering's flow fixed itself).
+- 91 plant pages on disk + emergency + 2 list pages + library. All 91 plant pages have hero.png. Zero asset debt. Verified via shell loop. **No backfill ticket needed.**
+- Open going into evening: 0 Eng, 1 PM (deferred Tier-3 search), 1 Research (3-month money question — Will-blocked, fine). Engineering queue effectively empty.
+
+**Decision 20: 12-ticket batch built around long-tail correction pages.**
+
+The obvious houseplant / herb / spring-bulb / cut-flower clusters are drained. Tomorrow's batch leans into: (a) completing kitchen-herb cluster (parsley/oregano/chives toxic + dill safe), (b) correction pages where popular online claims conflict with ASPCA (baby's-breath actually non-toxic, gerbera daisy / snapdragon safe despite assumptions), (c) trendy houseplants (arrowhead vine, polka-dot plant), (d) seasonal bulb + cut-flower additions (gladiolus toxic, hibiscus safe).
+
+Toxic (6): parsley, oregano, chives, arrowhead-vine, gladiolus. Wait — 5 toxic. Recount: parsley/oregano/chives/arrowhead-vine/gladiolus = 5 toxic. Safe (7): dill, hibiscus, norfolk-island-pine, babys-breath, gerbera-daisy, snapdragon, polka-dot-plant. Total 12. Slight safe-side tilt this round — appropriate given the correction-page nature of several entries.
+
+**Decision 21: Three ASPCA URL slug-shifts pre-baked into ticket Verification blocks.**
+
+To avoid the slug-mismatch problem that bit Engineering twice on previous batches (hyacinth → garden-hyacinth, sage → sage-not-garden-sage, marigold genus confusion), I explicitly noted the ASPCA canonical slug in every Verification block where it differs from the obvious guess:
+- norfolk-island-pine → ASPCA uses `/australian-pine` (Norfolk Pine is an additional common name)
+- gerbera-daisy → ASPCA uses `/gerber-daisy`
+- gladiolus → ASPCA uses `/gladiola`
+- snapdragon → ASPCA uses `/common-snapdragon`
+- arrowhead-vine → ASPCA uses `/arrow-head-vine`
+- hibiscus → ASPCA has BOTH `/hibiscus` and `/rose-sharon` for same species
+
+**Decision 22: Baby's breath is a high-value correction page.**
+
+Most third-party plant-safety sites (Hepper article, plenty of blogs) say baby's breath is mildly toxic via saponins. ASPCA's actual page reads \"Toxic Principles: Non-toxic\" — it's classified non-toxic with mild GI risk only. This is exactly the kind of authoritative-correction page our site exists for. Ticket body explicitly tells Engineering to address the third-party 'mildly toxic' claim head-on and resolve with the ASPCA quote.
+
+**Decision 23: Croton + lupine + lobelia deferred.**
+
+Considered them but couldn't confidently confirm ASPCA URL slug for croton from web search (ASPCA detail page didn't appear in search results despite the species being commonly cited as toxic). Lupine and lobelia have known ASPCA listings but were lower volume than the 12 I selected. Will scope a Research ticket later if backlog thins out.
+
+**Decision 24: Defer Tier-3 search-tool scoping. Again.**
+
+Same reasoning as last 7 cycles: want indexing/traffic data first. 91 pages live now — we are at the 'enough pages to make a search tool useful' threshold. Reconsider on Sunday.
+
+**Queue going into 2026-06-04 morning Eng run:** 12 Engineering tickets Not Started + 0 In Progress. Inside 8–15 target band, centred. Engineering will likely drain in one run given recent pace (13 in one run yesterday).
+
+**Carry-over PM / Research:** 1 PM (Tier-3 search, deferred), 1 Research (3-month money question, Will-blocked). Neither blocking.
+
+**Tickets created this round:** 12 Engineering. 0 PM / Research / Operations.
+
+
+## 2026-06-04 19:21 UTC — PM evening planning (Round 9)
+
+**State at planning time:**
+- Engineering shipped 12/12 today (5 toxic + 7 safe). Full drain. CompletedDate hygiene clean. Daily-log entry by Engineering is detailed (their lessons-learned on 4-at-a-time vs 12-way parallel `npm run` is worth keeping).
+- 97 plant pages on disk + emergency + toxic-plants list. All have hero.png. **Zero asset debt** (verified the loop again). No backfill ticket needed.
+- Open at evening: 0 Eng (post-drain), 1 PM (Tier-3 search — deferred again), 1 Research (3-month money question — Will-blocked, 35h In progress, fine), 1 raw PM ticket from Will ("PM: scope eng ticket to fix homepage" — addressed this round, see Decision 27).
+
+**Decision 25: 12-ticket batch leaning into outdoor / landscape / correction-page territory.**
+
+The obvious houseplant + cut-flower + spring-bulb + herb clusters are largely drained. Tomorrow's batch:
+- **Herb cluster closure (2):** cilantro safe, fennel safe — finish the Apiaceae sweep alongside parsley/dill/cilantro contrast.
+- **Toxic correction pages (3):** lemongrass (mistaken for safe cat-grass), chamomile (mistaken for safe tea), heavenly-bamboo (mistaken for safe bamboo). All three are high-volume "what about X?" searches with bloggy misinformation we can correct with ASPCA verbatim.
+- **Outdoor / landscape toxic (4):** clematis, rhododendron, periwinkle, buttercup. All Ranunculaceae or comparable garden-vine/groundcover/shrub. Outdoor-cat cohort.
+- **Trending houseplant toxic (1):** alocasia — high volume from new-plant-parents (Polly/Frydek/Black Velvet cultivars).
+- **Cardiac-glycoside garden flower (1):** lenten-rose / hellebore (covers Christmas Rose too — three names, one plant, one ticket).
+- **Seasonal St. Patrick's plant (1):** shamrock-plant (purple oxalis — soluble calcium oxalates, distinct from the Araceae insoluble mechanism).
+
+Verdict mix: 11 toxic, 2 safe. Toxic-heavy on purpose — safe-side queries are saturated; the high-value remaining queries are correction pages and outdoor warnings.
+
+**Decision 26: Three ASPCA URL slug-shifts and one verbatim-typo pre-baked into Verification blocks.**
+
+Slug shifts (so Engineering doesn't waste a fetch):
+- nandina → `heavenly-bamboo` is the canonical slug (also has `/nandina` sibling — cite both)
+- hellebore → `lenten-rose` is the canonical slug (also has `/hellebore` sibling — cite both)
+- shamrock → `shamrock-plant` (bare `/shamrock` and `/oxalis` slugs 404)
+- alocasia → `/alocasia` is right, but `/elephant-ear` is a DIFFERENT plant (Colocasia) — do not conflate
+
+Verbatim typo to preserve: ASPCA hellebore page lists toxin as "prtoanemonin" (typo of protoanemonin). Engineering instructed to quote verbatim with optional [sic].
+
+**Decision 27: Took Will's raw "fix homepage" complaint and formalised it into a single Engineering ticket.**
+
+Will's ticket `375e0560-4db9-8050-bd34-cce574072724` had two issues + one process request:
+1. Homepage landing-nav has 4 links (Safe/Toxic/Library/Emergency) — Will wants only 'Library' (matches SiteNav.tsx, which is already Library-only). This came in yesterday with Decision 20's "IA cards" ship and Will doesn't like the nav-bar redundancy with the cards below.
+2. Footer renders BEHIND the toxic-plants list page UI (z-index/overflow bug, screenshot attached to Will's ticket). Probably `.landing-grid-bg` extending or `.list-footer-cta` missing z-index.
+3. Will wants Engineering to add a UI sanity-check at the end of every daily run so visual regressions are caught.
+
+Scoped all three into one ticket (`375e0560-4db9-8170-9c9c-f49c0dbdc188`). Will's raw ticket should be closed Done once the formal one ships — Engineering instructed to do so via a linkback in the body, same pattern as 2026-06-03's superseded styling ticket.
+
+**Decision 28: Dropped croton, cosmos, dianthus from this round's candidate set.**
+
+- Croton (`/croton`): ASPCA page returns blank-title soft-404; no field data renders. Can't pre-verify. Defer.
+- Cosmos (`/cosmos`): same problem — blank-title page, no toxicity verdict renders despite a 200 response. Defer.
+- Dianthus (`/pinks` / `/pink-dianthus` exists, but Latin name is Dianthus caryophyllus — IDENTICAL to carnation which is already shipped). Would duplicate carnation page content. Skip.
+
+**Decision 29: Defer Tier-3 search-tool scoping. Again (cycle 9).**
+
+97 pages live. Still no indexing/traffic data. Reconsidering Sunday remains the call. Will-flagged decision still pending.
+
+**Queue going into 2026-06-05 morning Eng run:** 13 Engineering tickets Not Started (12 plant + 1 UI/process fix) + 0 In Progress. Inside the 8–15 target band. Engineering can drain in one run based on recent pace (12 in one run yesterday, 13 the day before).
+
+**Carry-over PM / Research:** 1 PM (Tier-3 search, deferred), 1 Research (3-month money question, Will-blocked 35h+). Neither blocking the build cadence.
+
+**Tickets created this round:** 13 Engineering (12 plant + 1 UI/process). 0 PM / Research / Operations.
