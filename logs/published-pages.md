@@ -111,3 +111,4 @@
 | Parsley | parsley | 2026-06-04 | is parsley safe for cats | — | — |
 | Buttercup | buttercup | 2026-06-05 | are buttercups toxic to cats | — | — |
 | Alocasia | alocasia | 2026-06-05 | is alocasia toxic to cats | — | — |
+| Periwinkle | periwinkle | 2026-06-05 | is periwinkle toxic to cats | — | — |
