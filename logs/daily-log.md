@@ -224,3 +224,45 @@ Drained the queue: 13 tickets, 13 shipped.
 **Queue size after run:** 0 Not started, 0 In progress for Engineering. Full drain.
 
 **Vercel:** auto-deploying main on every push. ~5s pacing between commits respected.
+
+## 2026-06-05 — Engineering daily run
+
+Drained 13-ticket queue (12 plant pages + 1 multi-part UI/SOUL ticket). Full clean exit. All commits ~5s paced; no OpenRouter or Notion rate-limit hits this run.
+
+**Plant pages shipped (slug → commit → verdict):**
+- buttercup (commit 4663071) — toxic, protoanemonin / Ranunculaceae; lawn-and-meadow framing
+- alocasia (commit c9ec1b0) — toxic, insoluble calcium oxalates / Araceae; covers full Polly/Frydek/Black Velvet/Zebrina cultivar map
+- periwinkle (commit bd4ea4b) — TOXIC, vinca alkaloids / Apocynaceae; serious-tier framing referencing vincristine pharmacology
+- clematis (commit 0e79eb6) — toxic, protoanemonin (Ranunculaceae sibling of buttercup)
+- lenten-rose (commit 2c2306e) — TOXIC, bufadienolides + glycosides + veratrin + protoanemonin / Ranunculaceae; covers hellebore + Christmas rose + Easter rose aliases; cardiac-glycoside tier
+- chamomile (commit b59808c) — toxic, volatile oils / Compositae; correction page tackling 'chamomile tea is gentle' myth, dedicated bleeding-tendency FAQ
+- fennel (commit 9b3abc3) — safe, ASPCA non-toxic / Apiaceae; closes the Apiaceae herb cluster
+- rhododendron (commit 209bdf5) — TOXIC, grayanotoxin / Ericaceae; disambiguates azalea sibling, ASPCA 'few leaves' threshold quoted
+- cilantro (commit 2216a68) — safe, ASPCA non-toxic / Apiaceae; cilantro/coriander naming reconciled, OR6A2 polymorphism aside
+- shamrock-plant (commit 79e5e34) — toxic, SOLUBLE calcium oxalates / Oxalidaceae; soluble-vs-insoluble oxalate mechanism distinction (different from pothos-class Araceae)
+- heavenly-bamboo (commit 9ed84d5) — TOXIC, cyanogenic glycosides / Berberidaceae; critical NOT-a-bamboo disambiguation page, berries the worst part
+- lemon-grass (commit 723657a) — TOXIC, essential oils + cyanogenic glycosides / Poaceae; critical cat-grass disambiguation (NOT the safe wheat/oat/barley grass), live-plant vs essential-oil tier distinction
+
+**UI / SOUL ticket shipped:**
+- 375e0560-eng-ui (commit d130c1d) — homepage nav cleanup (Library-only) + list-page footer z-index fix + UI sanity-check SOUL step. Will-flagged production bugs.
+
+**Build status:** green throughout. Started run at 114 static pages, ended at 124 (+10 = 12 plant pages + a few index re-renders; UI commit added no pages).
+
+**Hero art:** all 12 hero + 12 interior images generated and committed on first attempt. No OpenRouter rate-limit failures this run; no need for retries. Pacing 5s between commits respected.
+
+**YAML gotchas caught + fixed during run:**
+- alocasia FAQ "The visual difference: ..." — colon inside an unquoted answer broke YAML; wrapped in double quotes.
+- chamomile FAQ "interactions in human medicine: small individual effect..." — same pattern, fixed.
+- lemon-grass facts "sub: 'stomach upset' per ASPCA" — single-quoted phrase in unquoted value tripped YAML mapping; rewrote without quotes.
+- lemon-grass FAQ `answer: 'Cat grass' is a marketing name...` — leading single-quoted phrase looked like an opening string literal to YAML; wrapped whole answer in double quotes.
+
+**ASPCA URL slug-shifts (pre-baked by PM, all verified 200):** `/heavenly-bamboo` (+ sibling `/nandina`), `/lenten-rose` (+ sibling `/hellebore`), `/cilantro` (NOT `/coriander`), `/shamrock-plant` (NOT `/shamrock` or `/oxalis`), `/lemon-grass` (with hyphen, NOT `/lemongrass`), `/buttercup`, `/rhododendron` (+ sibling `/azalea`), `/clematis` (+ sibling `/virgins-bower`), `/chamomile` (+ sibling `/garden-chamomile`), `/fennel`, `/periwinkle`, `/alocasia`.
+
+**Will-flagged items / things needing PM or Will review:**
+- Homepage nav cleanup: dropped Safe/Toxic/Emergency duplicates of SiteNav. The Emergency link was the only one with custom styling (.landing-nav-emergency) — that CSS class still exists but is now unused; PM may want to garbage-collect it in a future cleanup.
+- Footer z-index fix uses a selector pattern (`.landing-root > *:not(.landing-grid-bg) { position:relative; z-index:1 }`) that applies to ALL direct children of every page using landing-root, not just list pages. This is intentional (catches any future page that adds the same overlay), but worth a Will tone-check that this doesn't inadvertently change stacking on existing pages. Verified homepage + library + plant page render correctly.
+- UI sanity-check SOUL step documents new gotchas: (a) port 3000 is OpenClaw gateway so use 4173 / `serve out/` instead of `next start`, (b) OpenClaw browser tool blocks localhost so chromium-headless is the workaround, (c) screenshots must live under /data/.openclaw/workspace/ for the image tool to ingest them. Suggest Will read the SOUL diff to confirm the workflow framing is right.
+
+**Queue size after run:** 0 Not started, 0 In progress for Engineering. Full drain.
+
+**Vercel:** auto-deploying main on every push. 13 commits today, each 5s+ apart.
