@@ -112,3 +112,4 @@
 | Buttercup | buttercup | 2026-06-05 | are buttercups toxic to cats | — | — |
 | Alocasia | alocasia | 2026-06-05 | is alocasia toxic to cats | — | — |
 | Periwinkle | periwinkle | 2026-06-05 | is periwinkle toxic to cats | — | — |
+| Clematis | clematis | 2026-06-05 | is clematis toxic to cats | — | — |
