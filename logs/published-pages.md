@@ -117,3 +117,4 @@
 | Chamomile | chamomile | 2026-06-05 | is chamomile safe for cats | — | — |
 | Fennel | fennel | 2026-06-05 | is fennel safe for cats | — | — |
 | Rhododendron | rhododendron | 2026-06-05 | is rhododendron toxic to cats | — | — |
+| Cilantro | cilantro | 2026-06-05 | is cilantro safe for cats | — | — |
