@@ -119,3 +119,4 @@
 | Rhododendron | rhododendron | 2026-06-05 | is rhododendron toxic to cats | — | — |
 | Cilantro | cilantro | 2026-06-05 | is cilantro safe for cats | — | — |
 | Shamrock Plant | shamrock-plant | 2026-06-05 | are shamrock plant toxic to cats | — | — |
+| Heavenly Bamboo | heavenly-bamboo | 2026-06-05 | are heavenly bamboo toxic to cats | — | — |
