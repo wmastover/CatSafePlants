@@ -266,3 +266,53 @@ Drained 13-ticket queue (12 plant pages + 1 multi-part UI/SOUL ticket). Full cle
 **Queue size after run:** 0 Not started, 0 In progress for Engineering. Full drain.
 
 **Vercel:** auto-deploying main on every push. 13 commits today, each 5s+ apart.
+
+## 2026-06-06 — Engineering daily run
+
+**Plant pages shipped (12):**
+- kentia-palm (commit c65c395) — safe, ASPCA non-toxic / Arecaceae; closes the cat-safe indoor palm cluster (areca, parlor, ponytail, bamboo, kentia). Noted ASPCA's broken Family field (lists sci-name instead of Arecaceae) per PM ticket.
+- camellia (commit 01756e0) — safe, ASPCA non-toxic / Theaceae; tea-plant caffeine caveat covered explicitly (Camellia sinensis live plant is fine; caffeine concern is processed tea).
+- nasturtium (commit e35f055, YAML fix a417c1b) — safe, ASPCA "no records of toxic ingestion" / Tropaeolaceae; nasturtium-vs-watercress naming disambig covered. YAML gotcha: leading `"Nasturtium"` quoted phrase in description tripped the block-mapping parser (same pattern as yesterday's lemon-grass fix). Pushed broken first commit, fixed forward.
+- jasmine (commit 2dfc717) — safe (TRUE Jasminum), ASPCA non-toxic / Oleaceae; the highest-volume ticket of the day (2,400/mo). Disambig matrix prominent — true jasmine + star jasmine SAFE, Cape jasmine (gardenia) + night-blooming jasmine + Carolina jessamine TOXIC.
+- gardenia (commit 296c26a) — TOXIC mild GI + hives, genioposide + gardenoside / Rubiaceae; Cape Jasmine disambiguation with [jasmine].
+- lobelia (commit 4b7ac67) — TOXIC, lobeline alkaloid / Campanulaceae; nicotinic-receptor mechanism, cardiac flag, lobeline≈nicotine receptor-family note.
+- yarrow (commit cc302e8) — TOXIC, three toxin classes (glycoalkaloids/monoterpenes/sesquiterpene lactones) / Asteraceae; correction page calling out the holistic-pet "safe calming herb" claim explicitly. ASPCA Soldier's Woundwort typo silently corrected per PM note.
+- pieris (commit fad0c25) — TOXIC, grayanotoxins / Ericaceae; completes the Ericaceae trio (azalea + rhododendron + pieris). ASPCA "few leaves can cause serious problems" line baked in verbatim. Lily-of-the-Valley Bush vs true Convallaria disambig prominent.
+- horse-chestnut (commit a2796a4) — TOXIC, aesculin saponin / Sapindaceae; conker + buckeye coverage. Sweet chestnut (Castanea sativa, Fagaceae) disambiguation explicit.
+- tobacco (commit b16bf0f) — TOXIC, nicotine / Solanaceae; explicitly covers cigarettes, vape liquid, nicotine gum/patches per PM scope. Cat lethal dose ~5 mg/kg cited.
+- castor-bean-plant (commit 7c1f832) — DEADLY (shipped as `toxic` in schema; verdictText carries "DEADLY"), ricin / Euphorbiaceae; 12-48h delayed onset is the marquee clinical detail. Bead-jewellery vector covered per PM ticket. (Interior image gen failed once on first attempt, retry succeeded — built-in fallback in the run helper.)
+- larkspur (commit 15cf9a3) — TOXIC, diterpene alkaloids (methyllycaconitine) / Ranunculaceae; covers both larkspur AND delphinium keyword clusters (ASPCA sci-name is literally Delphinium species).
+
+**UI cleanup (1 commit):**
+- e4c16c3 — swap two lookalike cards in castor-bean-plant and horse-chestnut that pointed to plants without MDX content (banana, chestnut, maple). Caught by today's UI sanity-check screenshots.
+
+**Build status:** green throughout (with build-failure-then-fix detours on nasturtium, pieris, and tobacco — see YAML gotchas below). Started at 117 plant pages (after kentia), ended at 128 (117 + 11 new = 128, plus list-page rerenders).
+
+**Hero art:** all 12 hero + 12 interior images generated. One retry needed (castor-bean-plant interior — first attempt got an empty response from the OpenRouter image endpoint; second attempt succeeded). No persistent failures; no rate-limit walls hit.
+
+**YAML gotchas caught + fixed during run (FOUR this batch — same pattern, document the lesson):**
+- nasturtium description starting `"Nasturtium" the common name…` — leading quoted phrase tripped block-mapping parser. **Pushed broken to prod first** because `ship.sh` used `npm run build … | tail` which masks the build exit code. **Fixed the helper** to use `set -o pipefail` + redirect-to-file + explicit `$?` check before commit. No further broken pushes after that fix.
+- pieris had THREE separate quoted-phrase-as-value-start instances (`sub: "few leaves" enough` ×2 + `pullQuote: >- ASPCA's quote on pieris is unusually specific: "Ingestion…"`). All rewritten to avoid leading-quote-or-embedded-colon patterns. Caught by the fixed ship.sh before commit (correct behaviour — left ticket In Progress until fixed, then completed).
+- tobacco metaTitle was 63 chars (60 char zod limit). Trimmed to `"Is Tobacco Toxic to Cats? Yes — Nicotine"` (47 chars). Note for future: check metaTitle char count BEFORE first build, easy to miss.
+- larkspur had two FAQ answers with `:` colons in unquoted scalar values (`functional muscle paralysis:` and `practical takeaway:`). Reflowed both to use em-dash instead of colon. Same gotcha pattern as previous days.
+
+**SOUL update suggestion for Will:** the "MDX YAML gotchas to avoid in plant pages" rules now have four documented patterns. Worth a short addition to the Engineering SOUL as a pre-flight checklist or a build-time linter:
+  1. Never start a YAML scalar value with a quoted phrase (e.g. `description: "Nasturtium" the common name…`). Wrap entire value in `"..."` instead, OR reflow.
+  2. Avoid embedded `:` colons in unquoted scalar values (e.g. `paralysis: tremors first…`). Use em-dashes.
+  3. metaTitle max 60 chars (zod schema-enforced — but only at build time).
+  4. Verdict schema only accepts `safe | toxic | insufficient-data`. "deadly" labels go in `verdictText`, not `verdict`.
+
+**UI sanity-check (per SOUL):**
+- 7 routes screenshotted: home, library, cat-safe-plants, toxic-plants-for-cats, plants/larkspur, plants/castor-bean-plant, plants/jasmine.
+- No landing-grid-bg footer-overlap regression. No duplicated nav. No off-colour text.
+- Caught lookalike-card thumbnail issue on castor-bean-plant (Banana plant card had no image because banana.mdx doesn't exist) — fixed in commit e4c16c3.
+- Image model flagged thumbnails in the library/toxic-list grids as missing; verified false positive (lazy-loading not firing in headless screenshot; HTML src attributes are correct, files exist on disk).
+
+**Will-flagged items / things needing review:**
+- **NEW (this run):** Several plant pages today contain inline body links to plants without MDX content (`/plants/banana/`, `/plants/bird-of-paradise/`, `/plants/sweet-alyssum/`, `/plants/chestnut/`, `/plants/maple/`, `/plants/silver-vine/`, `/plants/star-jasmine/`). These 404 if clicked but don't render as visible broken thumbnails. Same pre-existing pattern exists across older pages (calendula, wheatgrass, etc. also referenced but not built). Worth a PM scoping decision: build out these as a future batch, or rewrite the inline references in existing pages to point only to built plants. I'd lean toward "build them" since the existing references are useful SEO internal-linking signals if/when the pages exist.
+- **NEW (this run):** Engineering SOUL pre-flight checklist suggestion above (4 YAML gotchas + verdict-schema enum). Not blocking; would help future runs avoid the build-fix-build-fix loop.
+- **Carry-over:** UI sanity-check `.landing-nav-emergency` unused CSS class flagged 2026-06-05 still unused. Minor cleanup candidate.
+
+**Queue size after run:** 0 Not started, 0 In progress for Engineering. Full drain (matches yesterday — second consecutive zero-queue evening).
+
+**Vercel:** auto-deploying main on every push. 13 commits today + 1 cleanup commit + 1 mid-batch fix (15 total pushes). Pacing 5s between commits was approximated rather than mechanical; in practice each ticket's image-gen + build took 90-180s so the 5s git-cooldown was always satisfied.
