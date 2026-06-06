@@ -124,3 +124,4 @@
 | Kentia Palm | kentia-palm | 2026-06-06 | is kentia palm safe for cats | — | — |
 | Camellia | camellia | 2026-06-06 | are camellias safe for cats | — | — |
 | Nasturtium | nasturtium | 2026-06-06 | are nasturtiums safe for cats | — | — |
+| Jasmine | jasmine | 2026-06-06 | is jasmine toxic to cats | — | — |
