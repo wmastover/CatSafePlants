@@ -129,3 +129,4 @@
 | Lobelia | lobelia | 2026-06-06 | is lobelia toxic to cats | — | — |
 | Yarrow | yarrow | 2026-06-06 | is yarrow toxic to cats | — | — |
 | Pieris | pieris | 2026-06-06 | is pieris toxic to cats | — | — |
+| Horse Chestnut | horse-chestnut | 2026-06-06 | are horse chestnuts toxic to cats | — | — |
