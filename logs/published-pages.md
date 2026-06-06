@@ -130,3 +130,4 @@
 | Yarrow | yarrow | 2026-06-06 | is yarrow toxic to cats | — | — |
 | Pieris | pieris | 2026-06-06 | is pieris toxic to cats | — | — |
 | Horse Chestnut | horse-chestnut | 2026-06-06 | are horse chestnuts toxic to cats | — | — |
+| Tobacco | tobacco | 2026-06-06 | is tobacco toxic to cats | — | — |
