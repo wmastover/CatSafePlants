@@ -128,3 +128,4 @@
 | Gardenia | gardenia | 2026-06-06 | is gardenia toxic to cats | — | — |
 | Lobelia | lobelia | 2026-06-06 | is lobelia toxic to cats | — | — |
 | Yarrow | yarrow | 2026-06-06 | is yarrow toxic to cats | — | — |
+| Pieris | pieris | 2026-06-06 | is pieris toxic to cats | — | — |
