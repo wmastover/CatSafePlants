@@ -125,3 +125,4 @@
 | Camellia | camellia | 2026-06-06 | are camellias safe for cats | — | — |
 | Nasturtium | nasturtium | 2026-06-06 | are nasturtiums safe for cats | — | — |
 | Jasmine | jasmine | 2026-06-06 | is jasmine toxic to cats | — | — |
+| Gardenia | gardenia | 2026-06-06 | is gardenia toxic to cats | — | — |
