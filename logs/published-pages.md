@@ -132,3 +132,4 @@
 | Horse Chestnut | horse-chestnut | 2026-06-06 | are horse chestnuts toxic to cats | — | — |
 | Tobacco | tobacco | 2026-06-06 | is tobacco toxic to cats | — | — |
 | Castor Bean Plant | castor-bean-plant | 2026-06-06 | are castor bean plants toxic to cats | — | — |
+| Larkspur | larkspur | 2026-06-06 | are larkspur toxic to cats | — | — |
