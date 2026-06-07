@@ -133,3 +133,15 @@
 | Tobacco | tobacco | 2026-06-06 | is tobacco toxic to cats | — | — |
 | Castor Bean Plant | castor-bean-plant | 2026-06-06 | are castor bean plants toxic to cats | — | — |
 | Larkspur | larkspur | 2026-06-06 | are larkspur toxic to cats | — | — |
+| Satin Pothos | satin-pothos | 2026-06-07 | is satin pothos toxic to cats | — | — |
+| Yucca | yucca | 2026-06-07 | is yucca toxic to cats | — | — |
+| Gloriosa Lily | gloriosa-lily | 2026-06-07 | is gloriosa lily toxic to cats | — | — |
+| Jerusalem Cherry | jerusalem-cherry | 2026-06-07 | is jerusalem cherry toxic to cats | — | — |
+| Devil's Backbone | devils-backbone | 2026-06-07 | is devil's backbone toxic to cats | — | — |
+| Pencil Cactus | pencil-cactus | 2026-06-07 | is pencil cactus toxic to cats | — | — |
+| Painted Lady | painted-lady | 2026-06-07 | is painted lady safe for cats | — | — |
+| Plush Plant | plush-plant | 2026-06-07 | is plush plant safe for cats | — | — |
+| Burro's Tail | burros-tail | 2026-06-07 | is burro's tail safe for cats | — | — |
+| Aluminum Plant | aluminum-plant | 2026-06-07 | is aluminum plant safe for cats | — | — |
+| Friendship Plant | friendship-plant | 2026-06-07 | is friendship plant safe for cats | — | — |
+| Nerve Plant | nerve-plant | 2026-06-07 | is nerve plant safe for cats | — | — |

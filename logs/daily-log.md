@@ -316,3 +316,48 @@ Drained 13-ticket queue (12 plant pages + 1 multi-part UI/SOUL ticket). Full cle
 **Queue size after run:** 0 Not started, 0 In progress for Engineering. Full drain (matches yesterday — second consecutive zero-queue evening).
 
 **Vercel:** auto-deploying main on every push. 13 commits today + 1 cleanup commit + 1 mid-batch fix (15 total pushes). Pacing 5s between commits was approximated rather than mechanical; in practice each ticket's image-gen + build took 90-180s so the 5s git-cooldown was always satisfied.
+
+
+## 2026-06-07 — Engineering daily drain
+
+Shipped 12/12 from PM's 12-ticket batch. Full drain — third consecutive zero-queue Engineering evening.
+
+**Pages shipped (slug → SHA → verdict):**
+- satin-pothos → bd3c225 → toxic (Scindapsus pictus, insoluble calcium oxalates)
+- yucca → 8ddc6a9 → toxic (Yucca spp., saponins)
+- gloriosa-lily → 3a45227 → toxic — DEADLY (Gloriosa superba, colchicine alkaloids)
+- jerusalem-cherry → 7ec518d → toxic (Solanum pseudocapsicum, solanine)
+- devils-backbone → f72b166 → toxic (Kalanchoe tubiflora, bufadienolide cardiac glycosides)
+- pencil-cactus → 456690f → toxic (Euphorbia tirucalli, irritant latex)
+- painted-lady → 2e59b73 → safe (Echeveria multicaulis, Copper Rose)
+- plush-plant → e2018f2 → safe (Echeveria pul-oliver)
+- burros-tail → 4a87561 → safe (Sedum morganianum)
+- aluminum-plant → d8761f6 → safe (Pilea cadieri, Watermelon Plant)
+- friendship-plant → ae49366 → safe (Pilea involucrata)
+- nerve-plant → 6a06cb4 → safe (Fittonia verschaffeltii)
+
+Verdict mix: 6 toxic + 6 safe. Genus clusters completed: Echeveria (Painted Lady + Plush Plant = the two ASPCA Echeverias), Pilea (Aluminum + Friendship — now genus-wide safe explainer documented), Fittonia (genus-wide safe — Nerve Plant).
+
+**Build status:** green throughout (with one build-failure-then-fix detour on gloriosa-lily — embedded `:` in a FAQ answer, reflowed to em-dash; same YAML gotcha as yesterday's larkspur). Started at 128 plant pages, ended at 140 (128 + 12 new).
+
+**Hero art:** all 12 hero + 12 interior images generated first-try. No OpenRouter retries. No persistent failures.
+
+**YAML gotchas caught + fixed during run (one — same pattern as yesterday):**
+- gloriosa-lily FAQ answer had embedded `:` in unquoted scalar (`The clinical picture follows: bloody GI...`). Build caught it cleanly before commit (correct ship.sh behaviour — left ticket In Progress until fixed, then completed). Reflowed to em-dash.
+
+**Mid-batch ref-cleanup:** while writing friendship-plant page noticed aluminum-plant.mdx referenced a non-existent `/plants/chinese-money-plant/` route. The slug is actually `pilea-peperomioides`. Cleaned aluminum-plant.mdx body link + related-front-matter as part of the friendship-plant commit (ae49366).
+
+**UI sanity-check (per SOUL):**
+- 7 routes screenshotted: home, library, cat-safe-plants, toxic-plants-for-cats, plants/gloriosa-lily, plants/satin-pothos, plants/burros-tail.
+- No landing-grid-bg footer-overlap regression. No duplicated nav. No off-colour text.
+- Detail pages all clean.
+- Image model flagged thumbnails in library/cat-safe-plants/toxic-plants-for-cats grids as missing again. Verified false positive — same as yesterday: HTML src attributes are correct, files exist on disk, lazy-loading not firing in headless screenshot.
+
+**Will-flagged items / things needing review:**
+- **NEW (this run):** aluminum-plant ref to /plants/chinese-money-plant/ was a broken link in body that I caught and fixed in-batch. Same root-cause as yesterday's "inline body links to non-existent plants" backlog. Consider building chinese-money-plant.mdx as an alias/redirect, or normalising the trade-name common-name links to point to the existing pilea-peperomioides.mdx.
+- **Carry-over:** YAML gotcha #2 (embedded colons in unquoted scalars) hit again. The four-gotchas pre-flight checklist suggestion from yesterday's log is still relevant — would save a build-fix-build cycle per occurrence.
+- **Carry-over:** UI sanity-check `.landing-nav-emergency` unused CSS class still flagged from 2026-06-05. Minor cleanup candidate.
+
+**Queue size after run:** 0 Not started, 0 In progress for Engineering. Full drain (third consecutive zero-queue evening).
+
+**Vercel:** auto-deploying main on every push. 12 ticket commits + 1 mid-fix commit (gloriosa-lily YAML reflow merged into the same final commit) = 12 pushes total. Pacing 5s between commits was approximated rather than mechanical.
