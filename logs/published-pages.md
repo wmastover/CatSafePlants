@@ -145,3 +145,5 @@
 | Aluminum Plant | aluminum-plant | 2026-06-07 | is aluminum plant safe for cats | — | — |
 | Friendship Plant | friendship-plant | 2026-06-07 | is friendship plant safe for cats | — | — |
 | Nerve Plant | nerve-plant | 2026-06-07 | is nerve plant safe for cats | — | — |
+| Tiger Lily | tiger-lily | 2026-06-19 | are tiger lilies toxic to cats | — | — |
+| Daylily | daylily | 2026-06-19 | are daylilies toxic to cats | — | — |
