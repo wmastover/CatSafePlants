@@ -150,3 +150,10 @@
 | Strawberry | strawberry | 2026-06-19 | is strawberry safe for cats | — | — |
 | Cucumber | cucumber | 2026-06-19 | is cucumber safe for cats | — | — |
 | Banana | banana | 2026-06-19 | is banana safe for cats | — | — |
+| Magnolia | magnolia | 2026-06-19 | is magnolia safe for cats | — | — |
+| Star Jasmine | star-jasmine | 2026-06-19 | is star jasmine safe for cats | — | — |
+| Pampas Grass | pampas-grass | 2026-06-19 | is pampas grass safe for cats | — | — |
+| Calendula | calendula | 2026-06-19 | is calendula safe for cats | — | — |
+| Bottlebrush | bottlebrush | 2026-06-19 | is bottlebrush safe for cats | — | — |
+| Borage | borage | 2026-06-19 | is borage toxic to cats | — | — |
+| Tahitian Bridal Veil | tahitian-bridal-veil | 2026-06-19 | is tahitian bridal veil toxic to cats | — | — |
