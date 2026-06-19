@@ -511,3 +511,73 @@ ASPCA lists "Hens and Chickens" (Echeveria elegans, succulent). "Hens and Chicks
 - Decision 38 (broken inline-link cleanup) — explicitly promised to revisit Sunday with a verification pass. Did the partial pass: star-jasmine IS ASPCA-safe (could ship), calendula (Pot Marigold / Garden Marigold) IS ASPCA-safe (could ship). Did NOT include these in tomorrow's batch (already at 12) — earmarking for 2026-06-09 batch.
 
 **Tickets created this round:** 12 Engineering (all self-contained, ASPCA verbatim baked in). 0 PM / Research / Operations.
+
+
+## 2026-06-08 evening planning — Decisions 45–49
+
+**Queue going into 2026-06-09 morning Eng run:** 15 Engineering Not started (12 plant pages: 8 safe + 4 toxic; 3 infra: GSC/AWT setup + dead-link cleanup + font fix + STYLE_GUIDE.md) + 2 Research Not started (revenue model split into Part A + Part B). 0 PM open, 0 Blocked by Will.
+
+**Decision 45: Tier-3 search tool = GSC + AWT (free). Premium tools deferred.**
+
+After 11 deferral cycles, made the call. Reasoning: at 144 plant pages with zero indexed-page or query data, the blocker for revenue/SEO strategy is **observability, not tool sophistication**. GSC is canonical for what Google actually knows about the site (impressions, clicks, average position, queries). AWT free tier covers backlink discovery. Both zero-cost and industry-standard. Paid tools (Ahrefs $99/mo, Semrush $129/mo) buy nicer dashboards but the data we need is in GSC free. Defer paid tools until 30 days of GSC data justifies spend. Eng ticket scoped — will write robots.txt + sitemap.ts + verify both properties, then "Blocked by Will" for the two DNS TXT record values to add to Vercel DNS panel (two-pass workflow).
+
+Will's note on the ticket ("stop putting this off, highest priority") respected. Closed the umbrella PM ticket as Done.
+
+**Decision 46: Dead-link audit complete. 6 of 17 shipped tomorrow, 11 routed via Eng cleanup ticket.**
+
+Full audit at 19:00 UTC. 17 distinct dead /plants/ slugs across the site. Resolution map:
+- **Tomorrow's batch resolves 6 natively:** star-jasmine, calendula, tiger-lily, daylily, magnolia, banana (all ASPCA-verified today).
+- **Redirects (6):** bird-of-paradise→strelitzia-reginae; echeveria→painted-lady; ficus-lyrata→fiddle-leaf-fig; hens-and-chicks→hens-and-chickens; hoya→wax-plant; maple→red-maple.
+- **Unlinks (4 — slug not on ASPCA cats list):** crown-of-thorns, honeysuckle (true Lonicera not listed, only Honeysuckle Fuchsia which is a Fuchsia), silver-vine, sweet-alyssum.
+- **Bug fix (1):** `/plants/plant-slug/` literal placeholder somewhere — copy-paste artefact. Eng will hunt down.
+
+Eng ticket contains literal sed/perl scripts. No improvisation.
+
+**Decision 47: Font fix root-caused. Body bullets fall to DM Sans because `.col ul/ol/li` rules don't exist.**
+
+Will reported (2026-06-07) bulleted lists rendering in wrong font on chamomile. Diagnosed: `repo/src/styles/plant-page.css` has `.col p` in Cormorant Garamond serif but no rule for `<ul>/<ol>/<li>` inside `.col`. MDX-rendered lists inherit body default DM Sans. Eng ticket scoped with 4 new selectors + a project-root STYLE_GUIDE.md that explicitly documents the 3-family typography system (Cormorant=prose, DM Sans=UI chrome, JetBrains Mono=metadata/side-panels) and tells Engineering to reference the file before any future `font-family` addition.
+
+**Decision 48: Revenue projection re-scoped into Part A (data) + Part B (model). PM-locked assumptions.**
+
+Research agent's skip-and-flag on 2026-06-03 was correct — original ticket asked Research to invent strategic assumptions they're not authorised to make. New approach:
+- **Part A:** DataForSEO pull for 144 keywords + clicks tables at pos-11-20 / pos-4-10 / pos-1-3 using Advanced Web Ranking 2024 CTR curve. Pure data. AI Overview suppression flagged but not modelled.
+- **Part B:** PM-locked assumptions: affiliate-click CTR 3/5/8%, on-site conversion 2/3.5/5%, AOV $45, commission 3/6/10%, AI Overview 30% haircut on realistic/optimistic, ramp curve (10/25/45/75/100% over 1/2/3/6/12mo), content velocity +200 by m6 / +400 by m12 with 25%/100-pages diminishing returns. Affiliate programs in scope: Amazon Pet (3%), Chewy (4%), Petco (5%), direct-to-merchant houseplant retailers (8-10%). Part B is gated on Part A's commit existing.
+
+PM-questions section allowed at bottom of Part B deliverable — anything Research thinks PM should revisit. NO recommendations — numbers are the deliverable, Will decides.
+
+**Decision 49: 12-page plant batch = 6 dead-link-resolving + 6 fresh popular keywords.**
+
+Selection rationale:
+- **Dead-link resolution (6):** star-jasmine (safe, Apocynaceae, completes the jasmine cluster disambig: true jasmine + star jasmine + madagascar jasmine all safe; cape jasmine = gardenia + carolina jessamine + night-blooming jasmine all toxic); calendula (safe — ASPCA slug "Pot Marigold"; critical disambig vs Tagetes marigold which is toxic — already shipped); tiger-lily (TOXIC, DEADLY, ~2400/mo); daylily (TOXIC, DEADLY, Hemerocallis NOT Lilium but functionally identical); magnolia (safe — ASPCA slug "Magnolia Bush", M. stellata, genus-level cautious verdict); banana (safe — Musa acuminata, with Plantago plantain disambig).
+- **Fresh popular gaps (6):** strawberry (safe, ~4400/mo, high-value); cucumber (safe, ~2900/mo, includes the "cucumber startle" ethical note); borage (TOXIC — herb-cluster gap-fill, calls out ASPCA's typo on family "Boraginceae"); bottlebrush (safe — Callistemon, mandatory disambig vs Aesculus parviflora "buckeye bottlebrush" which ASPCA themselves flags); pampas-grass (safe — Poaceae, dried-decor-buyer search intent); tahitian-bridal-veil (TOXIC — completes Commelinaceae cluster with tradescantia).
+
+Verdict mix: 8 safe + 4 toxic.
+
+**Decision 50: Reverse partial Decision 42 — sweet-pea is safe for cats, will earmark for next batch.**
+
+Decision 42 (2026-06-07) deferred sweet-pea as "toxic to horses only, out of scope". Re-checked today: ASPCA explicitly says **Non-Toxic to Cats** (and Non-Toxic to Dogs) — only horse-toxic via aminoproprionitrite. That's IN scope (we ship safe-for-cats verdicts even when horse-toxic, same as red-maple in tomorrow's dead-link Eng ticket). Earmark sweet-pea for 2026-06-10 batch. The standing rule remains: "horse-only toxicity that does NOT include a cats verdict" is out of scope (e.g. clover which only had a horse line); but plants with explicit "Non-Toxic to Cats" verdicts are always in scope regardless of horse-toxicity.
+
+**Tickets created this round:** 12 Engineering plant + 3 Engineering infra (GSC/AWT, dead-link, font) + 2 Research (Part A + Part B) = **17 total**. 4 PM overdue tickets closed.
+
+
+## 2026-06-19 evening planning — Decision 51 (escalation, not strategy)
+
+**Situation:** Pipeline frozen for ~10 days. No Engineering or Research runs have processed the board since 2026-06-09 (Research Part A commit `9dd210b`). Today is 2026-06-19. The full 2026-06-08 queue (15 Engineering + 2 Research) is still Not started / In progress, all aged 258h+.
+
+**Diagnosis:**
+- 152 plant pages on disk (= 151 ex-template), matching the 2026-06-08 daily-log count exactly. No Engineering commits since 2026-06-09.
+- Board: 15 Engineering Not started + 1 Research In progress (Part B), all aged ~258.6h.
+- All 12 queued plant slugs verified NOT yet on disk — tickets remain executable as written.
+- All hero images present for shipped pages — no backfill needed.
+- ASPCA verdicts from 2026-06-08 still baked into tickets; no rotation needed (ASPCA URLs are stable, verdicts don't expire).
+
+**Conclusion:** This is not a planning problem. The executor cron jobs (Engineering / Research scheduled runs) are not running. PM cron is running (this run is proof). The system needs Will to look at the scheduler / executor side.
+
+**Action taken:**
+- Moved "Revenue Part B" from In progress → Not started (it was never actually being worked on; resetting so the next Research run picks it up cleanly).
+- Did NOT create new tickets. There is already a fully-prepped 16-ticket queue. Adding more is pointless until executors run.
+- Did NOT move anything to "Blocked by Will" — these tickets aren't blocked on Will's decisions, they're blocked on infrastructure. Escalation goes via Telegram summary.
+- Will summary today flags: pipeline outage, 16 tickets aged ~10 days, all ready to execute the moment runners come back.
+
+**If still frozen tomorrow (2026-06-20):** consider whether the queue contents are stale (re-verify ASPCA URLs hadn't been redirected, re-check no slug collisions from external shipping), and message Will more aggressively.
+
