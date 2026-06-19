@@ -361,3 +361,46 @@ Verdict mix: 6 toxic + 6 safe. Genus clusters completed: Echeveria (Painted Lady
 **Queue size after run:** 0 Not started, 0 In progress for Engineering. Full drain (third consecutive zero-queue evening).
 
 **Vercel:** auto-deploying main on every push. 12 ticket commits + 1 mid-fix commit (gloriosa-lily YAML reflow merged into the same final commit) = 12 pushes total. Pacing 5s between commits was approximated rather than mechanical.
+
+## 2026-06-19
+
+**Tickets shipped (14 total):**
+
+| Ticket | Slug | SHA | Verdict |
+|--------|------|-----|---------|
+| Fix bulleted-list font mismatch + STYLE_GUIDE.md | font-fix | c32258e | CSS .col ul/ol/li rules added after .col p .first block; STYLE_GUIDE.md created at repo root |
+| Fix 17 dead inline /plants/ links | dead-links | d595de3 | Redirected bird-of-paradise, echeveria, ficus-lyrata, hens-and-chicks, hoya, maple; unlinked crown-of-thorns, honeysuckle, silver-vine, sweet-alyssum |
+| Tiger Lily (TOXIC) | tiger-lily | e21f89f | ASPCA verified — nephrotoxic, emergency callout, pollen/vase-water exposure noted |
+| Day Lily (TOXIC) | daylily | a491800 | ASPCA verified — corrects "not a true lily" misconception; emergency template |
+| Strawberry (SAFE) | strawberry | 6c3ee4b | ASPCA verified — fruit-as-treat section, obligate carnivore note |
+| Cucumber (SAFE) | cucumber | e290f87 | ASPCA verified — cucumber-startle meme behavioral note included |
+| Banana (SAFE) | banana | f3a2719 | ASPCA verified — plantain disambiguation, treat note |
+| Magnolia (SAFE) | magnolia | 8888a7e | ASPCA verified (M. stellata) — hedged scope for other species |
+| Star Jasmine (SAFE) | star-jasmine | 9e717eb | ASPCA verified — full jasmine disambiguation matrix |
+| Pampas Grass (SAFE) | pampas-grass | 69e9fc9 | ASPCA verified — dried-plume decor angle, invasive note |
+| Calendula (SAFE) | calendula | 8cf3753 | ASPCA verified — Calendula vs Tagetes marigold disambiguation |
+| Bottlebrush (SAFE) | bottlebrush | 0cdc373 | ASPCA verified — Aesculus parviflora confusion warning |
+| Borage (TOXIC) | borage | 61ce709 | ASPCA verified — ASPCA typos corrected silently; PA note for seeds/oil |
+| Tahitian Bridal Veil (TOXIC) | tahitian-bridal-veil | fdbf28c | ASPCA verified — Commelinaceae genus cluster complete |
+
+**Infra shipped:**
+- robots.txt added to public/robots.txt (commit 558416b) — verified in build: /robots.txt route renders. Sitemap.ts already present.
+- GSC/AWT ticket left **In Progress** — requires Will to add DNS TXT records from GSC + AWT UIs.
+
+**UI sanity check (per SOUL):**
+- 7 routes screenshotted: home, library, cat-safe-plants, toxic-plants-for-cats, plants/tiger-lily, plants/strawberry, plants/calendula.
+- Font fix confirmed working: body paragraphs AND bulleted lists both render in Cormorant Garamond serif — consistent throughout.
+- No landing-grid-bg footer-overlap regression detected.
+- Library grid thumbnails missing in headless — confirmed false positive (lazy-loading), same as prior runs.
+- Aluminum Plant card has anomalous white border around image — pre-existing issue, not introduced today.
+
+**Will-flagged items / things needing review:**
+- **GSC/AWT (ACTION REQUIRED):** Will needs to log into https://search.google.com/search-console/welcome and https://ahrefs.com/webmaster-tools/, choose Domain property, enter catsafeplant.com, copy DNS TXT verification values, add to Vercel DNS panel. Once done, move GSC/AWT ticket back to Not started for verification completion.
+- **Aluminum Plant image border:** Pre-existing anomaly spotted in UI check — white border on card thumbnail. Consider CSS audit for that page specifically.
+- **Carry-over:** YAML four-gotchas pre-flight checklist suggestion still relevant. Robot.txt is now in place for search crawlers.
+
+**Queue size after run:** 0 Not started, 1 In Progress (GSC/AWT — pending Will). Full drain on plant pages.
+
+**Vercel:** Auto-deploying main on every push. 15 commits today (14 tickets + daily log). Pacing ~5s between commits.
+
+**Page count:** 164 plant pages published (was 152 at start of run).
