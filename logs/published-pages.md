@@ -149,3 +149,4 @@
 | Daylily | daylily | 2026-06-19 | are daylilies toxic to cats | — | — |
 | Strawberry | strawberry | 2026-06-19 | is strawberry safe for cats | — | — |
 | Cucumber | cucumber | 2026-06-19 | is cucumber safe for cats | — | — |
+| Banana | banana | 2026-06-19 | is banana safe for cats | — | — |
