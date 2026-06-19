@@ -148,3 +148,4 @@
 | Tiger Lily | tiger-lily | 2026-06-19 | are tiger lilies toxic to cats | — | — |
 | Daylily | daylily | 2026-06-19 | are daylilies toxic to cats | — | — |
 | Strawberry | strawberry | 2026-06-19 | is strawberry safe for cats | — | — |
+| Cucumber | cucumber | 2026-06-19 | is cucumber safe for cats | — | — |
