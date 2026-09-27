@@ -1,0 +1,384 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #f4efe2; }
+  #stage { position: absolute; inset: 0; overflow: hidden; background: #f4efe2; }
+  .scene { position: absolute; inset: 0; opacity: 0; will-change: opacity; }
+  .cam { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+  .cam iframe {
+    position: absolute; left: 0; top: 0; width: 1440px; height: 810px; border: 0;
+    transform: scale(1.3333333); transform-origin: 0 0; background: #f4efe2;
+  }
+  #cursor { position: absolute; left: 0; top: 0; width: 34px; height: 34px; opacity: 0; z-index: 10;
+    transform-origin: 3px 2px; filter: drop-shadow(0 4px 8px rgba(36,48,36,0.28)); }
+  #ripple { position: absolute; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%;
+    border: 2px solid rgba(47,69,48,0.55); opacity: 0; z-index: 9; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="scene" id="s1"><div class="cam"><iframe id="f1" src="/"></iframe></div></div>
+  <div class="scene" id="s2"><div class="cam"><iframe id="f2" src="/library/?q=lily"></iframe></div></div>
+  <div class="scene" id="s3"><div class="cam"><iframe id="f3" src="/plants/peace-lily/"></iframe></div></div>
+  <div class="scene" id="s5"><div class="cam"><iframe id="f5" src="/plants/spider-plant/"></iframe></div></div>
+  <div class="scene" id="s6"><div class="cam"><iframe id="f6" src="/"></iframe></div></div>
+  <div id="ripple"></div>
+  <svg id="cursor" viewBox="0 0 34 34"><path d="M3 2 L3 27 L9.5 21 L14 31 L18.5 29 L14 19.5 L23 19.5 Z"
+    fill="#243024" stroke="#f4efe2" stroke-width="2" stroke-linejoin="round"/></svg>
+</div>
+<script>
+const DURATION = 22.0, FPS = 30;
+const PS = 4 / 3;
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, t) => a + (b - a) * t;
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const easeInOut = (x) => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const easeOut = (x) => 1 - Math.pow(1 - x, 4);
+const backOut = (x) => { const c1 = 1.9, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+
+const $ = (id) => document.getElementById(id);
+const docOf = (id) => $(id).contentDocument;
+const winOf = (id) => $(id).contentWindow;
+
+function setStyle(el, o, ty = 0, extra = "") {
+  if (!el) return;
+  el.style.opacity = o;
+  el.style.transform = `translateY(${ty}px) ${extra}`;
+}
+function rise(el, t, a, d = 0.6, dist = 26) {
+  const p = easeOut(prog(t, a, a + d));
+  setStyle(el, p, (1 - p) * dist);
+}
+
+// Camera: zoom s, centered on stage point (cx, cy); clamped so edges never show.
+function camera(sceneId, s, cx, cy) {
+  const half = [960 / s, 540 / s];
+  cx = clamp(cx, half[0], 1920 - half[0]);
+  cy = clamp(cy, half[1], 1080 - half[1]);
+  const cam = document.querySelector(`#${sceneId} .cam`);
+  cam.style.transform = `translate(960px,540px) scale(${s}) translate(${-cx}px,${-cy}px)`;
+  cam._cam = { s, cx, cy };
+}
+function toStage(sceneId, x, y) {
+  const c = document.querySelector(`#${sceneId} .cam`)._cam;
+  return [(x * PS - c.cx) * c.s + 960, (y * PS - c.cy) * c.s + 540];
+}
+function rectCenter(el) { const r = el.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2, r]; }
+
+function cursorAt(x, y, o, press = 0) {
+  const c = $("cursor");
+  c.style.opacity = o;
+  c.style.transform = `translate(${x - 3}px,${y - 2}px) scale(${1 - 0.14 * press})`;
+}
+function ripple(x, y, p) {
+  const r = $("ripple");
+  if (p <= 0 || p >= 1) { r.style.opacity = 0; return; }
+  r.style.left = x + "px"; r.style.top = y + "px";
+  r.style.opacity = (1 - p) * 0.9;
+  r.style.transform = `scale(${0.3 + p * 1.2})`;
+}
+const pressCurve = (t, at) => Math.max(0, 1 - Math.abs(t - at) / 0.1);
+
+function wrapWords(el) {
+  if (el._wrapped) return el._wrapped;
+  const words = [];
+  for (const node of [...el.childNodes]) {
+    if (node.nodeType !== 3 || !node.textContent.trim()) continue;
+    const frag = el.ownerDocument.createDocumentFragment();
+    node.textContent.split(/(\s+)/).forEach((w) => {
+      if (!w) return;
+      if (/^\s+$/.test(w)) { frag.appendChild(el.ownerDocument.createTextNode(w)); return; }
+      const s = el.ownerDocument.createElement("span");
+      s.textContent = w; s.style.display = "inline-block";
+      frag.appendChild(s); words.push(s);
+    });
+    node.replaceWith(frag);
+  }
+  el._wrapped = words;
+  return words;
+}
+
+const FREEZE_CSS = `
+  *, *::before, *::after { transition: none !important; animation: none !important; caret-color: transparent !important; }
+  html { scroll-behavior: auto !important; }
+  ::-webkit-scrollbar { display: none; }
+  html, body { scrollbar-width: none; }
+  nextjs-portal { display: none !important; }
+`;
+
+async function prepFrame(id) {
+  const f = $(id);
+  await new Promise((res) => {
+    const done = () => (f.contentDocument && f.contentWindow.location.href !== "about:blank" && f.contentDocument.readyState === "complete") ? res() : setTimeout(done, 50);
+    done();
+  });
+  const d = f.contentDocument;
+  const st = d.createElement("style"); st.textContent = FREEZE_CSS; d.head.appendChild(st);
+  await new Promise((r) => setTimeout(r, 400));
+  d.querySelectorAll("img").forEach((img) => { img.loading = "eager"; img.decoding = "sync"; });
+  await Promise.race([d.fonts.ready, timeout(3000)]);
+  await waitImages(d);
+  if (d.activeElement) d.activeElement.blur();
+}
+
+const timeout = (ms) => new Promise((r) => setTimeout(r, ms));
+function waitImages(d) {
+  return Promise.all([...d.images].map((img) => Promise.race([
+    img.complete ? img.decode().catch(() => 0) : new Promise((r) => { img.onload = img.onerror = r; }),
+    timeout(4000),
+  ])));
+}
+
+let ready = false;
+async function init() {
+  await Promise.all(["f1", "f2", "f3", "f5", "f6"].map(prepFrame));
+  buildOutro();
+  const dek = docOf("f5").querySelector(".dek");
+  const phrase = "the kindest thing a leaf can be.";
+  dek.innerHTML = dek.innerHTML.replace(phrase,
+    `<span id="hl" style="background-image:linear-gradient(rgba(106,122,85,0.30),rgba(106,122,85,0.30));background-repeat:no-repeat;background-position:0 88%;background-size:0% 42%;">${phrase}</span>`);
+  await Promise.all(["f1", "f2", "f3", "f5", "f6"].map((id) => waitImages(docOf(id))));
+  ready = true;
+}
+
+function buildOutro() {
+  const d = docOf("f6");
+  const o = d.createElement("div");
+  o.id = "brag-outro";
+  o.innerHTML = `
+    <div class="bg"></div>
+    <div class="wrap">
+      <img class="logo" src="/images/plants/CatSafePlantLogo.png" alt="">
+      <div class="word">cat <em>safe</em> plants</div>
+      <div class="line">Every plant, <em>one verdict.</em></div>
+      <div class="meta">182 plants <span>·</span> ASPCA-sourced</div>
+      <div class="url">catsafeplant.com <span>→</span></div>
+    </div>`;
+  const st = d.createElement("style");
+  st.textContent = `
+    #brag-outro { position: fixed; inset: 0; z-index: 9999; background: #f4efe2; display: flex; align-items: center; justify-content: center; }
+    #brag-outro .bg { position: absolute; inset: 0; background-image: linear-gradient(to right, rgba(60,80,50,0.05) 1px, transparent 1px); background-size: calc(100% / 12) 100%; }
+    #brag-outro .wrap { position: relative; text-align: center; display: flex; flex-direction: column; align-items: center; }
+    #brag-outro .logo { width: 84px; height: 84px; margin-bottom: 22px; border-radius: 50%; }
+    #brag-outro .word { font-family: var(--font-cormorant), serif; font-size: 104px; font-weight: 500; letter-spacing: -0.02em; color: #2f4530; line-height: 1; }
+    #brag-outro .word em, #brag-outro .line em { font-style: italic; color: #6a7a55; font-weight: 400; }
+    #brag-outro .line { font-family: var(--font-cormorant), serif; font-size: 40px; color: #2f4530; margin-top: 22px; }
+    #brag-outro .meta { font-family: var(--font-jetbrains-mono), monospace; font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase; color: #6a7a55; margin-top: 26px; }
+    #brag-outro .meta span { margin: 0 8px; }
+    #brag-outro .url { margin-top: 34px; background: #2f4530; color: #f4efe2; font-family: var(--font-jetbrains-mono), monospace; font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; padding: 16px 30px; }
+    #brag-outro .url span { margin-left: 10px; }
+  `;
+  d.head.appendChild(st);
+  d.body.appendChild(o);
+}
+
+// Scene visibility: dip through paper between scenes.
+const SCENES = [
+  { id: "s1", a: 0.0, b: 3.5 },
+  { id: "s2", a: 3.5, b: 8.0 },
+  { id: "s3", a: 8.0, b: 14.5 },
+  { id: "s5", a: 14.5, b: 18.5 },
+  { id: "s6", a: 18.5, b: 99 },
+];
+function sceneOpacity(t, sc) {
+  if (t < sc.a || t >= sc.b) return 0;
+  const inP = sc.a === 0 ? 1 : easeOut(prog(t, sc.a, sc.a + 0.3));
+  const outP = 1 - easeInOut(prog(t, sc.b - 0.26, sc.b));
+  return Math.min(inP, outP);
+}
+
+function scene1(t) {
+  const d = docOf("f1");
+  const h1 = d.querySelector(".landing-headline");
+  const words = wrapWords(h1);
+  words.forEach((w, i) => rise(w, t, 0.1 + i * 0.13, 0.55, 34));
+  const em = h1.querySelector("em");
+  const pe = easeOut(prog(t, 0.72, 1.4));
+  em.style.opacity = pe; em.style.transform = `translateX(${(1 - pe) * -48}px)`;
+
+  const fig = d.querySelector(".landing-figure");
+  const pf = easeInOut(prog(t, 1.2, 2.3));
+  fig.style.clipPath = `inset(${(1 - pf) * 100}% 0 0 0)`;
+  rise(d.querySelector(".landing-figcaption"), t, 2.0, 0.5, 12);
+  rise(d.querySelector(".landing-dek"), t, 1.55, 0.6, 16);
+  rise(d.querySelector(".landing-search"), t, 1.85, 0.6, 16);
+  rise(d.querySelector(".landing-suggest"), t, 2.05, 0.6, 12);
+  const strip = d.querySelector(".landing-strip"); if (strip) strip.style.opacity = 0;
+  winOf("f1").scrollTo(0, 0);
+
+  const [hx, hy] = rectCenter(h1);
+  const pc = easeInOut(prog(t, 0.0, 2.7));
+  camera("s1", lerp(1.42, 1.0, pc), lerp(hx * PS, 960, pc), lerp(hy * PS, 540, pc));
+
+  const input = d.querySelector(".landing-search input");
+  const typed = "lily".slice(0, Math.floor(clamp((t - 2.95) / 0.125 + 1, 0, 4)));
+  if (input.value !== typed) input.value = typed;
+
+  const [ix, iy] = rectCenter(input);
+  const target = toStage("s1", ix - 90, iy);
+  const pm = easeInOut(prog(t, 2.35, 2.82));
+  const start = [target[0] + 520, target[1] + 300];
+  const cx = lerp(start[0], target[0], pm), cy = lerp(start[1], target[1], pm);
+  return { cursor: [cx, cy, easeOut(prog(t, 2.3, 2.5)), pressCurve(t, 2.88)], ripple: [cx, cy, prog(t, 2.88, 3.3)] };
+}
+
+function scene2(t) {
+  const d = docOf("f2"), w = winOf("f2");
+  rise(d.querySelector(".library-kicker"), t, 0.0, 0.5, 14);
+  rise(d.querySelector(".library-title"), t, 0.05, 0.6, 22);
+  rise(d.querySelector(".library-dek"), t, 0.2, 0.6, 14);
+  rise(d.querySelector(".library-toolbar"), t, 0.3, 0.6, 14);
+  const cards = [...d.querySelectorAll(".library-grid > li")];
+  cards.forEach((c, i) => rise(c, t, 0.5 + i * 0.125, 0.55, 46));
+
+  const rowTwo = cards[4];
+  const baseTop = (rowTwo._top ??= rowTwo.getBoundingClientRect().top + w.scrollY);
+  const ps = easeInOut(prog(t, 2.05, 2.9));
+  w.scrollTo(0, Math.round(lerp(0, baseTop - 150, ps)));
+
+  const peace = cards[6];
+  const card = peace.querySelector(".library-card");
+  const hov = easeOut(prog(t, 3.35, 3.6));
+  const press = pressCurve(t, 4.0);
+  card.style.transform = `translateY(${-8 * hov}px) scale(${1 - 0.02 * press})`;
+  card.style.boxShadow = `0 ${30 * hov}px ${50 * hov}px -${24 * hov}px rgba(60,80,50,${0.5 * hov})`;
+
+  const [px, py] = rectCenter(card);
+  const pz = easeInOut(prog(t, 4.05, 4.5));
+  const introS = lerp(1.22, 1.0, easeInOut(prog(t, 0.0, 1.5)));
+  const introC = [lerp(760, 960, easeInOut(prog(t, 0, 1.5))), lerp(420, 540, easeInOut(prog(t, 0, 1.5)))];
+  const s = introS * (1 + 0.9 * pz);
+  camera("s2", s, lerp(introC[0], px * PS, pz), lerp(introC[1], py * PS, pz));
+
+  const target = toStage("s2", px - 30, py + 40);
+  const pm = easeInOut(prog(t, 2.75, 3.45));
+  const start = [1500, 1150];
+  const cx = lerp(start[0], target[0], pm), cy = lerp(start[1], target[1], pm);
+  return { cursor: [cx, cy, easeOut(prog(t, 2.7, 2.9)) * (1 - prog(t, 4.1, 4.3)), press], ripple: [cx, cy, prog(t, 4.0, 4.4)] };
+}
+
+function scene3(t) {
+  const d = docOf("f3"), w = winOf("f3");
+  const h1 = d.querySelector(".h1");
+  const words = wrapWords(h1);
+  words.forEach((wd, i) => rise(wd, t, 0.05 + i * 0.12, 0.6, 30));
+  rise(h1.querySelector("em"), t, 0.25, 0.6, 30);
+  rise(d.querySelector(".latin"), t, 0.45, 0.5, 12);
+  const vc = d.querySelector(".verdict-card");
+  const pv = prog(t, 0.82, 1.0);
+  vc.style.opacity = clamp(pv * 4);
+  vc.style.transform = `scale(${lerp(1.4, 1.0, backOut(pv))}) rotate(${lerp(-3, 0, easeOut(pv))}deg)`;
+  vc.style.transformOrigin = "30% 50%";
+  rise(d.querySelector(".dek"), t, 1.2, 0.6, 14);
+  const fig = d.querySelector(".hero-right");
+  fig.style.clipPath = `inset(${(1 - easeInOut(prog(t, 0.15, 1.2))) * 100}% 0 0 0)`;
+
+  const rule = d.querySelector("#lookalikes");
+  const ruleTop = (rule._top ??= rule.getBoundingClientRect().top + w.scrollY);
+  const ps = easeInOut(prog(t, 2.8, 3.55));
+  w.scrollTo(0, Math.round(lerp(0, ruleTop - 36, ps)));
+
+  const [vx, vy] = rectCenter(vc);
+  const push = easeInOut(prog(t, 0.6, 2.8)) * (1 - ps);
+  camera("s3", 1 + 0.2 * push, lerp(960, vx * PS + 180, push), lerp(540, vy * PS, push));
+
+  rise(rule.querySelector("h2"), t, 3.25, 0.6, 20);
+  rise(rule.querySelector(".lab"), t, 3.2, 0.5, 10);
+  const intro = d.querySelector(".swap-intro"); if (intro) rise(intro, t, 3.35, 0.5, 10);
+  const swaps = [...d.querySelectorAll(".swap > .swap-card")];
+  swaps.forEach((c, i) => rise(c, t, 3.5 + i * 0.25, 0.6, 60));
+
+  const pick = swaps[1];
+  let cur = [0, 0, 0, 0], rip = [0, 0, 0];
+  if (pick) {
+    const pic = pick.querySelector(".pic");
+    const hov = easeOut(prog(t, 5.45, 5.7));
+    const press = pressCurve(t, 5.85);
+    pic.style.transform = `translateY(${-8 * hov}px) scale(${1 - 0.015 * press})`;
+    pic.style.boxShadow = `0 ${30 * hov}px ${50 * hov}px -${24 * hov}px rgba(60,80,50,${0.5 * hov})`;
+    const [bx, by] = rectCenter(pic);
+    const target = toStage("s3", bx + 30, by + 60);
+    const pm = easeInOut(prog(t, 4.9, 5.55));
+    const cx = lerp(1700, target[0], pm), cy = lerp(1150, target[1], pm);
+    cur = [cx, cy, easeOut(prog(t, 4.85, 5.05)), press];
+    rip = [cx, cy, prog(t, 5.85, 6.25)];
+  }
+  return { cursor: cur, ripple: rip };
+}
+
+function scene5(t) {
+  const d = docOf("f5");
+  const h1 = d.querySelector(".h1");
+  const words = wrapWords(h1);
+  words.forEach((wd, i) => rise(wd, t, 0.05 + i * 0.12, 0.6, 30));
+  rise(h1.querySelector("em"), t, 0.2, 0.6, 30);
+  rise(d.querySelector(".latin"), t, 0.35, 0.5, 12);
+  const vc = d.querySelector(".verdict-card");
+  const pv = prog(t, 0.25, 0.5);
+  vc.style.opacity = clamp(pv * 3);
+  vc.style.transform = `scale(${lerp(0.82, 1.0, backOut(pv))})`;
+  vc.style.transformOrigin = "30% 50%";
+  rise(d.querySelector(".dek"), t, 0.75, 0.6, 14);
+  rise(d.querySelector(".buy-card"), t, 1.0, 0.6, 18);
+  const fig = d.querySelector(".hero-right");
+  fig.style.clipPath = `inset(${(1 - easeInOut(prog(t, 0.1, 1.1))) * 100}% 0 0 0)`;
+  const hl = d.getElementById("hl");
+  hl.style.backgroundSize = `${easeInOut(prog(t, 1.5, 2.1)) * 100}% 42%`;
+
+  winOf("f5").scrollTo(0, Math.round(150 * easeInOut(prog(t, 1.9, 2.6))));
+  const [dx, dy] = rectCenter(d.querySelector(".dek"));
+  const push = easeInOut(prog(t, 0.0, 3.2));
+  camera("s5", 1 + 0.1 * push, lerp(960, dx * PS + 300, push), lerp(540, dy * PS + 120, push));
+
+  const btn = d.querySelector(".buy-btn");
+  const [bx, by] = rectCenter(btn);
+  const target = toStage("s5", bx + 30, by + 4);
+  const pm = easeInOut(prog(t, 2.35, 2.95));
+  const cx = lerp(1750, target[0], pm), cy = lerp(1150, target[1], pm);
+  const press = pressCurve(t, 3.25);
+  btn.style.filter = `brightness(${1 + 0.35 * easeOut(prog(t, 2.9, 3.1))})`;
+  return { cursor: [cx, cy, easeOut(prog(t, 2.3, 2.5)), press], ripple: [cx, cy, prog(t, 3.25, 3.65)] };
+}
+
+function scene6(t) {
+  const d = docOf("f6");
+  const o = d.getElementById("brag-outro");
+  const logo = o.querySelector(".logo");
+  const pl = easeOut(prog(t, 0.05, 0.55));
+  logo.style.opacity = pl; logo.style.transform = `scale(${lerp(0.6, 1, backOut(prog(t, 0.05, 0.5)))})`;
+  rise(o.querySelector(".word"), t, 0.15, 0.65, 30);
+  rise(o.querySelector(".line"), t, 0.5, 0.6, 20);
+  rise(o.querySelector(".meta"), t, 0.72, 0.5, 12);
+  rise(o.querySelector(".url"), t, 0.88, 0.55, 16);
+  const s = lerp(1.06, 1.0, easeOut(prog(t, 0, 2.5)));
+  camera("s6", s, 960, 540);
+  return { cursor: [0, 0, 0, 0], ripple: [0, 0, 0] };
+}
+
+const RENDER = { s1: scene1, s2: scene2, s3: scene3, s5: scene5, s6: scene6 };
+
+async function seek(t) {
+  let cursor = [0, 0, 0, 0], rip = [0, 0, 0];
+  for (const sc of SCENES) {
+    const o = sceneOpacity(t, sc);
+    $(sc.id).style.opacity = o;
+    $(sc.id).style.visibility = o > 0 ? "visible" : "hidden";
+    if (o > 0) {
+      const r = RENDER[sc.id](t - sc.a);
+      if (r.cursor[2] > 0) { cursor = [...r.cursor]; cursor[2] *= o; rip = r.ripple; }
+    }
+  }
+  cursorAt(cursor[0], cursor[1], cursor[2], cursor[3]);
+  ripple(rip[0], rip[1], rip[2]);
+  await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+}
+
+window.seek = seek;
+window.isReady = () => ready;
+window.DURATION = DURATION; window.FPS = FPS;
+init().catch((e) => console.log('init error', e && e.stack));
+</script>
+</body>
+</html>
