@@ -404,3 +404,11 @@ Verdict mix: 6 toxic + 6 safe. Genus clusters completed: Echeveria (Painted Lady
 **Vercel:** Auto-deploying main on every push. 15 commits today (14 tickets + daily log). Pacing ~5s between commits.
 
 **Page count:** 164 plant pages published (was 152 at start of run).
+
+## 2026-09-27
+
+- Made a 22s launch video with the `/brag-slim` skill ([latent-spaces/brag](https://github.com/latent-spaces/brag)): `brag-output/brag.mp4`, poster `brag.jpg`, share copy `share-copy.txt`, plan `brag-plan.md`
+  - Flow shown: landing hook → library search "lily" → Peace Lily toxic verdict → safe lookalikes → Spider Plant safe verdict → outro
+  - Frames are the real static export (`out/`) animated in iframes; original soundtrack synthesized in `brag-output/work/audio.py`
+  - Re-render: `npm run build`, serve `out/` on :4173, copy `brag-output/work/comp.html` to `out/_brag/index.html`, then `node render.mjs video video-silent.mp4` in `brag-output/work/`
+- No site code or content changed

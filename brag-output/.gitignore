@@ -1,0 +1,9 @@
+work/node_modules/
+work/shots/
+work/stills/
+work/*.png
+work/*.jpg
+work/*.wav
+work/*.log
+work/video-silent.mp4
+work/dbg.mjs
